@@ -1,0 +1,1208 @@
+.account-security-page {
+  margin-left: 305px;
+  width: calc(100% - 305px);
+
+  min-height: calc(100vh - 72px);
+
+  padding: 28px 30px 50px;
+
+  background: #f8f9ff;
+  color: #17203a;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   IMPORTANT
+   Do not affect Navbar / Sidebar
+========================================================= */
+
+.account-security-page *,
+.account-security-page *::before,
+.account-security-page *::after {
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.security-page-header {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  margin-bottom: 22px;
+}
+
+.security-header-icon {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+
+  background: #eee9ff;
+  color: #6535e8;
+
+  font-size: 21px;
+}
+
+.security-page-header h1 {
+  margin: 0 0 5px;
+
+  color: #17203a;
+
+  font-size: 24px;
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+.security-page-header p {
+  margin: 0;
+
+  color: #747e94;
+
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   SECURITY GRID
+========================================================= */
+
+.security-grid {
+  width: 100%;
+  min-width: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.08fr)
+    minmax(0, 0.92fr);
+
+  gap: 17px;
+
+  align-items: start;
+}
+
+.security-grid {
+  width: 100%;
+  min-width: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.08fr)
+    minmax(0, 0.92fr);
+
+  gap: 17px;
+
+  align-items: start;
+}
+
+
+/* YAHAN ADD KARO */
+
+.password-card,
+.two-factor-card {
+  min-height: 390px;
+}
+
+.login-activity-card {
+  grid-column: 1 / -1;
+}
+
+.protection-card {
+  grid-column: 1 / -1;
+}
+
+.danger-zone {
+  grid-column: span 1;
+  width: 100%;
+
+  border-color: #f1dddd;
+  background: #fffdfd;
+}
+/* =========================================================
+   COMMON CARD
+========================================================= */
+
+/* .security-card {
+  width: 100%;
+  min-width: 0;
+
+  padding: 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #e8e6f2;
+  border-radius: 12px;
+
+  box-shadow:
+    0 4px 16px rgba(48, 38, 100, 0.035);
+} */
+ .security-card {
+  width: 100%;
+  min-width: 0;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e6e3ef;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(48, 38, 100, 0.04);
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CARD HEADING
+========================================================= */
+
+.security-card-heading {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 11px;
+
+  margin-bottom: 18px;
+}
+
+.security-icon {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #eee9ff;
+  color: #6738e8;
+
+  font-size: 14px;
+}
+
+.security-card-heading h2 {
+  margin: 0 0 4px;
+
+  color: #202940;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.security-card-heading p {
+  margin: 0;
+
+  color: #7c8599;
+
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   PASSWORD FIELDS
+========================================================= */
+
+.security-field {
+  width: 100%;
+
+  margin-bottom: 14px;
+}
+
+.security-field label {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #4c5870;
+
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.password-input {
+  position: relative;
+
+  width: 100%;
+}
+
+.password-input input {
+  width: 100%;
+  height: 40px;
+
+  padding: 0 40px 0 12px;
+
+  border: 1px solid #ddddeb;
+  border-radius: 7px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #252d42;
+
+  font-family: inherit;
+  font-size: 10px;
+
+  transition: 0.2s ease;
+}
+
+.password-input input::placeholder {
+  color: #a0a7b7;
+}
+
+.password-input input:focus {
+  border-color: #7450e8;
+
+  box-shadow:
+    0 0 0 3px rgba(108, 76, 225, 0.07);
+}
+
+.password-input button {
+  position: absolute;
+
+  right: 11px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  width: 22px;
+  height: 22px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #8991a4;
+
+  cursor: pointer;
+}
+
+.password-input button:hover {
+  color: #6535e8;
+}
+
+
+/* =========================================================
+   PASSWORD STRENGTH
+========================================================= */
+
+.password-strength {
+  margin-top: 5px;
+
+  color: #747e94;
+
+  font-size: 9px;
+}
+
+.password-strength strong {
+  margin-left: 4px;
+}
+
+.password-strength.weak strong {
+  color: #dc3545;
+}
+
+.password-strength.medium strong {
+  color: #d28b00;
+}
+
+.password-strength.strong strong {
+  color: #1b9b62;
+}
+
+
+/* =========================================================
+   UPDATE PASSWORD
+========================================================= */
+
+.update-password-btn {
+  width: 100%;
+  height: 40px;
+
+  margin-top: 2px;
+
+  border: none;
+  border-radius: 7px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #7042ee,
+      #5b31d8
+    );
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.update-password-btn:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 7px 16px rgba(99, 56, 232, 0.20);
+}
+
+
+/* =========================================================
+   PASSWORD MESSAGE
+========================================================= */
+
+.password-message {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  margin-top: 9px;
+  padding: 8px 10px;
+
+  border-radius: 7px;
+
+  font-size: 9px;
+}
+
+.password-message.success {
+  color: #16834b;
+
+  background: #edf9f3;
+
+  border: 1px solid #cceedd;
+}
+
+.password-message.error {
+  color: #c0392b;
+
+  background: #fff3f1;
+
+  border: 1px solid #ffd8d2;
+}
+
+
+/* =========================================================
+   FORGOT PASSWORD
+========================================================= */
+
+.forgot-password-btn {
+  margin-top: 11px;
+  padding: 0;
+
+  border: none;
+  background: transparent;
+
+  color: #6c5ce7;
+
+  font-family: inherit;
+  font-size: 9px;
+
+  cursor: pointer;
+}
+
+.forgot-password-btn span {
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   2FA TOGGLE
+========================================================= */
+
+.two-factor-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 17px;
+
+  color: #46516a;
+
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.security-toggle {
+  width: 40px;
+  height: 22px;
+
+  padding: 3px;
+
+  border: none;
+  border-radius: 20px;
+
+  background: #d9dce7;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.security-toggle span {
+  display: block;
+
+  width: 16px;
+  height: 16px;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.14);
+
+  transition: 0.25s ease;
+}
+
+.security-toggle.active {
+  background: #6c3ee9;
+}
+
+.security-toggle.active span {
+  transform: translateX(18px);
+}
+
+
+/* =========================================================
+   2FA METHODS
+========================================================= */
+
+.method-title {
+  margin-bottom: 8px;
+
+  color: #56617a;
+
+  font-size: 9px;
+  font-weight: 650;
+}
+
+.security-method {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  margin-bottom: 8px;
+  padding: 10px;
+
+  border: 1px solid #e5e3ee;
+  border-radius: 7px;
+
+  background: #ffffff;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.security-method:hover {
+  border-color: #cfc3f7;
+
+  background: #faf8ff;
+}
+
+.security-method.selected {
+  border-color: #8d70ed;
+
+  background: #faf8ff;
+}
+
+.method-icon {
+  width: 29px;
+  height: 29px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 7px;
+
+  background: #eee8ff;
+  color: #6535e8;
+
+  font-size: 13px;
+}
+
+.method-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.method-content strong {
+  display: block;
+
+  margin-bottom: 2px;
+
+  color: #273149;
+
+  font-size: 10px;
+}
+
+.method-content span {
+  display: block;
+
+  color: #8991a4;
+
+  font-size: 8px;
+  line-height: 1.4;
+}
+
+.radio-circle {
+  width: 15px;
+  height: 15px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1.5px solid #afb4c4;
+
+  border-radius: 50%;
+}
+
+.security-method.selected .radio-circle {
+  border-color: #6c3ee9;
+}
+
+.radio-circle span {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #6c3ee9;
+}
+
+
+/* =========================================================
+   INFO
+========================================================= */
+
+.security-info-box {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 7px;
+
+  margin-top: 11px;
+  padding: 9px;
+
+  border: 1px solid #e5dcff;
+  border-radius: 7px;
+
+  background: #f5f1ff;
+
+  color: #7156c8;
+
+  font-size: 8px;
+  line-height: 1.45;
+}
+
+.security-info-box svg {
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   LOGIN ACTIVITY
+========================================================= */
+
+.session-table {
+  width: 100%;
+
+  overflow: hidden;
+
+  border: 1px solid #e7e5ef;
+  border-radius: 8px;
+}
+
+.session-header,
+.session-row {
+  display: grid;
+
+  grid-template-columns:
+    1.35fr
+    1fr
+    0.75fr;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.session-header {
+  padding: 9px;
+
+  background: #fafaff;
+
+  border-bottom: 1px solid #eceaf3;
+
+  color: #68738a;
+
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.session-row {
+  padding: 10px 9px;
+
+  border-bottom: 1px solid #efedf5;
+}
+
+.session-row:last-child {
+  border-bottom: none;
+}
+
+.session-device {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+}
+
+.browser-circle {
+  width: 28px;
+  height: 28px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 7px;
+
+  background: #f0edff;
+
+  font-size: 13px;
+}
+
+.session-device strong {
+  display: block;
+
+  margin-bottom: 2px;
+
+  color: #28324a;
+
+  font-size: 9px;
+}
+
+.session-device small {
+  display: block;
+
+  color: #9299aa;
+
+  font-size: 7px;
+}
+
+.session-location {
+  color: #6d778d;
+
+  font-size: 8px;
+}
+
+.session-active {
+  display: flex;
+  align-items: center;
+
+  gap: 4px;
+
+  color: #68738a;
+
+  font-size: 8px;
+}
+
+.active-dot,
+.inactive-dot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+}
+
+.active-dot {
+  background: #1fb36d;
+}
+
+.inactive-dot {
+  background: #aeb3bf;
+}
+
+
+/* =========================================================
+   SESSION BUTTONS
+========================================================= */
+
+.session-actions {
+  display: flex;
+  justify-content: space-between;
+
+  gap: 8px;
+
+  margin-top: 11px;
+}
+
+.view-activity-btn,
+.logout-devices-btn {
+  height: 33px;
+
+  padding: 0 11px;
+
+  border-radius: 7px;
+
+  font-family: inherit;
+
+  font-size: 8px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.view-activity-btn {
+  border: 1px solid #7653e8;
+
+  background: #ffffff;
+
+  color: #6842df;
+}
+
+.view-activity-btn:hover {
+  background: #f6f2ff;
+}
+
+.logout-devices-btn {
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  border: 1px solid #f1a3a3;
+
+  background: #ffffff;
+
+  color: #dc3f3f;
+}
+
+.logout-devices-btn:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+.session-success {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 8px;
+  padding: 7px 9px;
+
+  border: 1px solid #cceedd;
+  border-radius: 7px;
+
+  background: #edf9f3;
+
+  color: #16834b;
+
+  font-size: 8px;
+}
+
+
+/* =========================================================
+   ACCOUNT PROTECTION
+========================================================= */
+
+.protection-card {
+  grid-column: 1 / -1;
+}
+
+.protection-items {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr))
+    minmax(190px, 1.1fr);
+
+  gap: 9px;
+}
+
+.protection-item {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  min-width: 0;
+
+  padding: 10px;
+
+  border: 1px solid #ebe9f2;
+  border-radius: 7px;
+
+  background: #fcfcff;
+}
+
+.protection-status {
+  width: 27px;
+  height: 27px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+}
+
+.success-status {
+  background: #e8f8f0;
+  color: #1ca366;
+}
+
+.neutral-status {
+  background: #f0f1f5;
+  color: #8991a4;
+}
+
+.protection-item strong {
+  display: block;
+
+  margin-bottom: 2px;
+
+  color: #283149;
+
+  font-size: 9px;
+}
+
+.protection-item span {
+  display: block;
+
+  color: #7d879b;
+
+  font-size: 8px;
+}
+
+.security-level {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 10px;
+
+  border: 1px solid #cdeedd;
+  border-radius: 7px;
+
+  background: #f0fbf5;
+
+  color: #189b60;
+}
+
+.security-level > svg {
+  flex-shrink: 0;
+
+  font-size: 20px;
+}
+
+.security-level strong {
+  display: block;
+
+  margin-bottom: 2px;
+
+  color: #16834b;
+
+  font-size: 9px;
+}
+
+.security-level span {
+  display: block;
+
+  color: #1eaa6b;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   DANGER ZONE
+========================================================= */
+
+.danger-zone {
+  border-color: #f1dddd;
+
+  background: #fffdfd;
+}
+
+.danger-heading {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 10px;
+
+  margin-bottom: 13px;
+}
+
+.danger-icon {
+  width: 35px;
+  height: 35px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #ffe9e9;
+  color: #e24848;
+}
+
+.danger-heading h2 {
+  margin: 0 0 3px;
+
+  color: #2b3040;
+
+  font-size: 13px;
+}
+
+.danger-heading p {
+  margin: 0;
+
+  color: #8d8f99;
+
+  font-size: 8px;
+}
+
+.delete-account-box {
+  width: 95%;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 10px;
+
+  border: 1px solid #f5dada;
+  border-radius: 7px;
+
+  background: #fff8f8;
+}
+
+.delete-icon {
+  width: 29px;
+  height: 29px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 7px;
+
+  background: #ffe8e8;
+  color: #df4545;
+}
+
+.delete-content strong {
+  display: block;
+
+  margin-bottom: 2px;
+
+  color: #bd3333;
+
+  font-size: 9px;
+}
+
+.delete-content span {
+  display: block;
+
+  color: #8b7777;
+
+  font-size: 8px;
+  line-height: 1.4;
+}
+
+.delete-account-btn {
+  width: 95%;
+  height: 33px;
+
+  margin-top: 9px;
+
+  border: 1px solid #ef5b5b;
+  border-radius: 7px;
+
+  background: #ffffff;
+  color: #dc3f3f;
+
+  font-family: inherit;
+  font-size: 8px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.delete-account-btn:hover {
+  background: #fff1f1;
+}
+
+
+/* =========================================================
+   DELETE CONFIRM
+========================================================= */
+
+.delete-confirm-box {
+  margin-top: 9px;
+  padding: 10px;
+
+  border: 1px solid #ffd3d3;
+  border-radius: 7px;
+
+  background: #fff1f1;
+}
+
+.delete-confirm-box p {
+  margin: 0 0 9px;
+
+  color: #9e3030;
+
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.delete-confirm-box > div {
+  display: flex;
+
+  gap: 7px;
+}
+
+.cancel-delete-btn,
+.confirm-delete-btn {
+  flex: 1;
+
+  height: 30px;
+
+  border-radius: 6px;
+
+  font-family: inherit;
+
+  font-size: 8px;
+  font-weight: 650;
+
+  cursor: pointer;
+}
+
+.cancel-delete-btn {
+  border: 1px solid #d7d9e1;
+
+  background: #ffffff;
+
+  color: #68738a;
+}
+
+.confirm-delete-btn {
+  border: none;
+
+  background: #df4545;
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .security-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .protection-card {
+    grid-column: auto;
+  }
+
+  .protection-items {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+@media (max-width: 700px) {
+
+  .account-security-page {
+    padding: 20px 15px 40px;
+  }
+
+  .security-page-header h1 {
+    font-size: 21px;
+  }
+
+  .session-header {
+    display: none;
+  }
+
+  .session-row {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .protection-items {
+    grid-template-columns: 1fr;
+  }
+
+  .session-actions {
+    flex-direction: column;
+  }
+
+  .view-activity-btn,
+  .logout-devices-btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,154 @@
+/* ======================================
+   src/components/Stats/Stats.css
+====================================== */
+
+.stats {
+  padding: 110px 8%;
+  background: linear-gradient(to bottom, #ffffff, #f8fbff);
+}
+
+.stats-heading {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.stats-heading span {
+  display: inline-block;
+  padding: 10px 24px;
+  background: #eef2ff;
+  color: #4f46e5;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 50px;
+  margin-bottom: 18px;
+}
+
+.stats-heading h2 {
+  font-size: 52px;
+  color: #111827;
+  line-height: 1.2;
+  margin-bottom: 18px;
+}
+
+.stats-heading p {
+  width: 60%;
+  margin: auto;
+  color: #6b7280;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+   max-width:1100px;
+    margin:0 auto;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 25px;
+  padding: 40px 30px;
+  text-align: center;
+  transition: 0.4s ease;
+  border: 1px solid #edf2f7;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+}
+
+.stat-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 25px 45px rgba(79, 70, 229, 0.18);
+}
+
+.stat-icon {
+  width: 80px;
+  height: 80px;
+  margin: auto;
+  margin-bottom: 25px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  transition: 0.4s;
+}
+
+.stat-card:hover .stat-icon {
+  transform: rotate(10deg) scale(1.08);
+}
+
+.stat-card h3 {
+  font-size: 48px;
+  color: #4f46e5;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.stat-card p {
+  color: #6b7280;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* ===========================
+      Responsive Design
+=========================== */
+
+@media (max-width: 1100px) {
+
+  .stats-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stats-heading p {
+    width: 80%;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .stats {
+    padding: 80px 20px;
+  }
+
+  .stats-heading h2 {
+    font-size: 38px;
+  }
+
+  .stats-heading p {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .stats-container {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .stats-heading h2 {
+    font-size: 30px;
+  }
+
+  .stat-card {
+    padding: 35px 25px;
+  }
+
+  .stat-card h3 {
+    font-size: 40px;
+  }
+
+  .stat-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 28px;
+  }
+
+}

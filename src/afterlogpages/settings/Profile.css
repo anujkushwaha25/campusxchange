@@ -1,0 +1,3152 @@
+/* =========================================
+   PROFILE PAGE
+========================================= */
+
+.profile-page {
+  width: 100%;
+  padding: 18px;
+  background: #f8f9fd;
+  box-sizing: border-box;
+  color: #17203a;
+}
+
+
+/* =========================================
+   PROFILE HEADER
+========================================= */
+
+.profile-header {
+  width: 100%;
+  min-height: 210px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 28px 24px;
+  box-sizing: border-box;
+
+  border: 1px solid #eceaf8;
+  border-radius: 12px;
+
+  background: linear-gradient(
+    120deg,
+    #ffffff 0%,
+    #faf8ff 55%,
+    #f1ecff 100%
+  );
+
+  box-shadow: 0 4px 18px rgba(50, 35, 100, 0.05);
+}
+
+
+.profile-main-info {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+
+.profile-avatar-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+
+.profile-avatar {
+  width: 125px;
+  height: 125px;
+  min-width: 125px;
+  min-height: 125px;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  border: 4px solid #ffffff;
+  box-shadow: 0 0 0 2px #ddd6fe,
+              0 6px 18px rgba(70, 45, 180, 0.12);
+}
+
+
+.profile-camera-btn {
+  position: absolute;
+
+  right: 0;
+  bottom: 4px;
+
+  width: 36px;
+  height: 36px;
+
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+
+  background: #6338e8;
+
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 15px;
+}
+
+
+.profile-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+
+.profile-name-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+
+.profile-name-row h1 {
+  margin: 0;
+
+  font-size: 25px;
+  font-weight: 700;
+
+  color: #10182f;
+}
+
+
+.verified-name-icon {
+  color: #6535e8;
+  font-size: 19px;
+}
+
+
+.profile-info-row {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  font-size: 14px;
+  color: #53617d;
+}
+
+
+.profile-info-row svg {
+  color: #6240df;
+  font-size: 16px;
+}
+
+
+.profile-bio {
+  max-width: 500px;
+
+  margin: 5px 0 0;
+
+  font-size: 13px;
+  line-height: 1.5;
+
+  color: #65708a;
+
+  font-style: italic;
+}
+
+
+.edit-profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 11px 22px;
+
+  border: 1px solid #6d42ed;
+  border-radius: 8px;
+
+  background: white;
+
+  color: #6034df;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+
+.edit-profile-btn:hover {
+  background: #6535e8;
+  color: white;
+}
+
+.edit-profile-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cancel-profile-btn,
+.save-profile-btn {
+  height: 42px;
+  padding: 0 18px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.cancel-profile-btn {
+  background: #ffffff;
+  color: #555;
+  border: 1px solid #d9d9e3;
+}
+
+.cancel-profile-btn:hover {
+  background: #f5f5f8;
+}
+
+.save-profile-btn {
+  background: #6338e8;
+  color: #ffffff;
+  border: 1px solid #6338e8;
+  box-shadow: 0 5px 14px rgba(99, 56, 232, 0.18);
+}
+
+.save-profile-btn:hover {
+  background: #5429d4;
+}
+
+
+/* =========================================================
+   ADVANCED PROFILE EDIT MODE
+   CampusXchange
+========================================================= */
+
+/* ---------- Header edit container ---------- */
+
+.profile-user-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.profile-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+}
+
+/* ---------- All header inputs ---------- */
+
+.profile-header-input {
+  appearance: none;
+  -webkit-appearance: none;
+
+  border: 1px solid transparent;
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.72);
+
+  color: #171b35;
+
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+
+  padding: 9px 12px;
+
+  outline: none;
+
+  box-shadow:
+    inset 0 1px 2px rgba(35, 25, 90, 0.04),
+    0 1px 2px rgba(35, 25, 90, 0.03);
+
+  transition:
+    border-color 0.22s ease,
+    background 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.22s ease;
+}
+
+/* Hover */
+
+.profile-header-input:hover {
+  background: #ffffff;
+  border-color: #ddd7f8;
+}
+
+/* Focus */
+
+.profile-header-input:focus {
+  background: #ffffff;
+  border-color: #7042ee;
+
+  box-shadow:
+    0 0 0 3px rgba(112, 66, 238, 0.10),
+    0 4px 12px rgba(75, 45, 180, 0.08);
+
+  transform: translateY(-1px);
+}
+
+/* ---------- Name ---------- */
+
+.profile-name-input {
+  width: 230px;
+  height: 42px;
+
+  padding: 8px 13px;
+
+  font-size: 24px;
+  font-weight: 750;
+  letter-spacing: -0.5px;
+
+  color: #171b35;
+
+  border-radius: 11px;
+}
+
+/* ---------- College ---------- */
+
+.profile-info-row .profile-header-input {
+  width: 300px;
+  max-width: 100%;
+  height: 38px;
+
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ---------- Course ---------- */
+
+.profile-course-input {
+  width: 90px !important;
+  height: 36px !important;
+}
+
+/* ---------- Graduation year ---------- */
+
+.profile-year-input {
+  width: 95px !important;
+  height: 36px !important;
+}
+
+/* ---------- Keep bullet visually balanced ---------- */
+
+.profile-info-row > span {
+  flex-shrink: 0;
+}
+
+/* ---------- Bio ---------- */
+
+.profile-bio {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.profile-bio-input {
+  display: block;
+
+  width: min(520px, 100%);
+  min-height: 76px;
+
+  padding: 11px 13px;
+
+  font-size: 14px;
+  line-height: 1.55;
+
+  resize: vertical;
+
+  border-radius: 11px;
+}
+
+/* Textarea scrollbar */
+
+.profile-bio-input::-webkit-scrollbar {
+  width: 6px;
+}
+
+.profile-bio-input::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.profile-bio-input::-webkit-scrollbar-thumb {
+  background: #cfc8ef;
+  border-radius: 10px;
+}
+
+
+/* =========================================================
+   EDIT PROFILE ACTIONS
+========================================================= */
+
+.edit-profile-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-left: 20px;
+
+  flex-shrink: 0;
+}
+
+/* Cancel */
+
+.cancel-profile-btn {
+  height: 44px;
+
+  padding: 0 20px;
+
+  border: 1px solid #dedee8;
+  border-radius: 11px;
+
+  background: rgba(255, 255, 255, 0.85);
+
+  color: #55586d;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cancel-profile-btn:hover {
+  background: #ffffff;
+  border-color: #cfcfdc;
+  color: #303348;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 5px 14px rgba(30, 30, 60, 0.06);
+}
+
+/* Save */
+
+.save-profile-btn {
+  height: 44px;
+
+  padding: 0 22px;
+
+  border: 0;
+  border-radius: 11px;
+
+  background: linear-gradient(
+    135deg,
+    #7042ee 0%,
+    #5c32db 100%
+  );
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 7px 18px rgba(99, 56, 232, 0.22);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.save-profile-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 24px rgba(99, 56, 232, 0.30);
+
+  filter: brightness(1.03);
+}
+
+.save-profile-btn:active,
+.cancel-profile-btn:active {
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   EDIT MODE — HEADER CARD
+========================================================= */
+
+.profile-header:has(.profile-header-input) {
+  position: relative;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(124, 92, 255, 0.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(99, 56, 232, 0.06),
+      transparent 32%
+    ),
+    #f8f6ff;
+
+  border-color: #e4defb;
+
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.profile-header:has(.profile-header-input) .profile-main-info {
+  gap: 24px;
+}
+
+
+/* =========================================================
+   EDITABLE FIELD ICON ALIGNMENT
+========================================================= */
+
+.profile-info-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 7px;
+}
+
+.profile-info-row > svg {
+  flex-shrink: 0;
+
+  color: #6338e8;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   INPUT PLACEHOLDER
+========================================================= */
+
+.profile-header-input::placeholder {
+  color: #9a97ab;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .profile-name-input {
+    width: 200px;
+  }
+
+  .profile-info-row .profile-header-input {
+    width: 250px;
+  }
+
+  .edit-profile-actions {
+    margin-left: 10px;
+  }
+}
+
+
+@media (max-width: 850px) {
+
+  .profile-header:has(.profile-header-input) .profile-main-info {
+    align-items: flex-start;
+  }
+
+  .profile-name-input {
+    width: 190px;
+    font-size: 21px;
+  }
+
+  .profile-info-row .profile-header-input {
+    width: 230px;
+  }
+
+  .edit-profile-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cancel-profile-btn,
+  .save-profile-btn {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .profile-header-input {
+    font-size: 14px;
+  }
+
+  .profile-name-input {
+    width: 100%;
+    max-width: 220px;
+  }
+
+  .profile-info-row .profile-header-input {
+    width: 100%;
+    max-width: 240px;
+  }
+
+  .profile-course-input {
+    width: 75px !important;
+  }
+
+  .profile-year-input {
+    width: 80px !important;
+  }
+
+  .profile-bio-input {
+    width: 100%;
+  }
+}
+
+
+/* =========================================
+   MAIN GRID
+========================================= */
+
+.profile-content-grid {
+  display: grid;
+
+  grid-template-columns: minmax(0, 1fr) 380px;
+
+  gap: 18px;
+
+  margin-top: 18px;
+
+  align-items: start;
+}
+
+
+/* =========================================
+   VERIFICATION SECTION
+========================================= */
+
+.verification-section {
+  min-width: 0;
+
+  padding: 18px;
+
+  border: 1px solid #eceaf8;
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  box-shadow: 0 4px 18px rgba(50, 35, 100, 0.04);
+}
+
+
+.verification-heading {
+  margin-bottom: 18px;
+}
+
+
+.verification-heading h2 {
+  margin: 0 0 5px;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  color: #17203a;
+}
+
+
+.verification-heading p {
+  margin: 0;
+
+  font-size: 13px;
+  color: #65708a;
+}
+
+
+/* =========================================
+   VERIFICATION GRID
+========================================= */
+/* .verification-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.verification-grid > * {
+  align-self: start;
+  min-height: 0;
+} */
+ /* =========================================
+   VERIFICATION GRID
+========================================= */
+
+.verification-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+/* Each side is an independent vertical column */
+.verification-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* Prevent cards from stretching */
+.verification-column > * {
+  width: 100%;
+  min-width: 0;
+  align-self: stretch;
+}
+
+.address-verification-card,
+.college-verification-card {
+  align-self: start !important;
+  height: fit-content !important;
+  min-height: 0 !important;
+}
+
+/* =========================================
+   VERIFICATION CARD
+========================================= */
+
+.email-verification-card {
+  min-width: 0;
+
+  padding: 17px;
+
+  border: 1px solid #e7e5f1;
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  transition: 0.25s ease;
+}
+
+
+.email-verification-card:hover {
+  border-color: #d8cdfa;
+
+  box-shadow:
+    0 5px 15px rgba(85, 55, 180, 0.06);
+}
+
+
+.email-verification-card-heading {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 12px;
+
+  margin-bottom: 15px;
+}
+
+
+.email-verification-icon {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f0ebff;
+
+  color: #6535e8;
+
+  font-size: 16px;
+}
+
+
+.email-verification-card-heading h3 {
+  margin: 0 0 5px;
+
+  font-size: 14px;
+  font-weight: 650;
+
+  color: #17203a;
+}
+
+
+.email-verification-card-heading p {
+  margin: 0;
+
+  font-size: 11px;
+  line-height: 1.45;
+
+  color: #68738a;
+}
+
+
+/* =========================================
+   INPUT + VERIFIED BADGE
+========================================= */
+
+.email-verification-input-row {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+}
+
+
+.email-verification-card input {
+  width: 100%;
+  height: 37px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  border: 1px solid #dfe2ed;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #1c2741;
+  font-size: 12px;
+  outline: none;
+}
+
+
+.email-verification-input-row input:focus {
+  border-color: #7042e8;
+}
+
+
+.email-verified-badge {
+  position: absolute;
+
+  right: 7px;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  padding: 5px 8px;
+
+  border-radius: 20px;
+
+  background: #dcf9ef;
+
+  color: #15956d;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+
+.email-verified-badge svg {
+  font-size: 10px;
+}
+
+
+/* =========================================
+   OTP
+========================================= */
+
+.otp-row {
+  display: flex;
+
+  gap: 9px;
+
+  margin-top: 13px;
+}
+
+
+.otp-row input {
+  flex: 1;
+
+  min-width: 0;
+
+  height: 36px;
+
+  padding: 0 10px;
+
+  border: 1px solid #dfe2ed;
+  border-radius: 6px;
+
+  outline: none;
+
+  font-size: 11px;
+}
+
+
+.otp-row input:focus {
+  border-color: #6a3de4;
+}
+
+
+.verify-otp-btn {
+  width: 97px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: #6a3de4;
+
+  color: white;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+.verify-otp-btn:hover {
+  background: #5127c9;
+}
+
+
+.resend-text {
+  margin: 10px 0 0;
+
+  font-size: 10px;
+
+  color: #66718a;
+}
+
+
+.resend-text span {
+  color: #5d32d9;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   ID CARD UPLOAD
+========================================= */
+/* =========================================
+   STUDENT ID CARD
+========================================= */
+
+.student-id-card {
+  min-width: 0;
+  padding: 17px;
+
+  border: 1px solid #e7e5f1;
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  transition: 0.25s ease;
+}
+
+.student-id-card:hover {
+  border-color: #d8cdfa;
+
+  box-shadow:
+    0 5px 15px rgba(85, 55, 180, 0.06);
+}
+
+
+/* ---------- Heading ---------- */
+
+.student-id-heading {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+
+/* ---------- Icon ---------- */
+
+.student-id-icon {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f0ebff;
+  color: #6535e8;
+
+  font-size: 16px;
+}
+
+
+/* ---------- Heading text ---------- */
+
+.student-id-heading h3 {
+  margin: 0 0 5px;
+
+  font-size: 14px;
+  font-weight: 650;
+
+  color: #17203a;
+}
+
+.student-id-heading p {
+  margin: 0;
+
+  font-size: 11px;
+  line-height: 1.45;
+
+  color: #68738a;
+}
+
+
+/* ---------- Upload grid ---------- */
+
+.student-id-upload-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: start;
+}
+
+.student-id-upload-box {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.student-id-preview {
+  width: 100%;
+  height: 150px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border: 1px dashed #d8d4e8;
+  border-radius: 7px;
+  background: #fafaff;
+
+  color: #8b91a5;
+  font-size: 11px;
+}
+
+.student-id-preview svg {
+  font-size: 24px;
+  color: #7040ed;
+}
+.student-id-image-preview {
+  width: 100%;
+  height: 150px;
+
+  box-sizing: border-box;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #ddd9ed;
+  border-radius: 7px;
+  background: #ffffff;
+}
+
+.student-id-image-preview img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  display: block;
+}
+
+
+/* ---------- Upload button ---------- */
+
+.student-id-upload-btn {
+  width: 100%;
+  height: 34px;
+  margin-top: 9px;
+  border: 1px solid #cfc2fa;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #6035d9;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  transition: 0.2s ease;
+}
+
+
+.student-id-upload-btn:hover {
+  background: #f5f1ff;
+
+  border-color: #a995ee;
+
+  transform: translateY(-1px);
+}
+
+
+/* ---------- File information ---------- */
+
+.student-id-upload-box small {
+  margin-top: 6px;
+
+  font-size: 8px;
+
+  color: #8991a4;
+}
+
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 600px) {
+
+  .student-id-upload-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+
+/* =========================================
+   ADDRESS
+========================================= */
+
+/* =========================
+   ADDRESS VERIFICATION
+========================= */
+
+.address-verification-card {
+  min-width: 0;
+  padding: 17px;
+  border: 1px solid #e7e5f1;
+  border-radius: 9px;
+  background: #ffffff;
+  transition: 0.25s ease;
+}
+
+.address-verification-card:hover {
+  border-color: #d8cdfa;
+  box-shadow: 0 5px 15px rgba(85, 55, 180, 0.06);
+}
+
+
+/* HEADING */
+
+.address-verification-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 17px;
+}
+
+.address-verification-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: #f0ebff;
+  color: #6535e8;
+  font-size: 15px;
+}
+
+.address-verification-heading h3 {
+  margin: 0 0 5px;
+  font-size: 14px;
+  font-weight: 650;
+  color: #17203a;
+}
+
+.address-verification-heading p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.45;
+  color: #68738a;
+}
+
+.address-verification-check {
+  margin-left: auto;
+  color: #20a464;
+  font-size: 18px;
+}
+
+
+/* FORM */
+
+.address-verification-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px;
+  align-items: start;
+}
+
+.address-verification-field {
+  min-width: 0;
+}
+
+.address-verification-full {
+  grid-column: 1 / -1;
+}
+
+.address-verification-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 10px;
+  font-weight: 650;
+  color: #4d5872;
+}
+
+.address-verification-field input,
+.address-verification-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  border: 1px solid #dddbea;
+  border-radius: 6px;
+  background: #ffffff;
+
+  padding: 9px 10px;
+
+  font-family: inherit;
+  font-size: 11px;
+  color: #20283d;
+
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.address-verification-field input {
+  height: 35px;
+}
+
+.address-verification-field textarea {
+  min-height: 72px;
+  resize: none;
+  line-height: 1.45;
+}
+
+.address-verification-field input:focus,
+.address-verification-field textarea:focus {
+  border-color: #8060e8;
+  box-shadow: 0 0 0 3px rgba(112, 64, 237, 0.08);
+}
+
+.address-verification-field input::placeholder,
+.address-verification-field textarea::placeholder {
+  color: #a1a6b5;
+}
+
+
+/* ERROR */
+
+.address-verification-field input.address-verification-error,
+.address-verification-field textarea.address-verification-error {
+  border-color: #e05252;
+  background: #fffafa;
+}
+
+.address-verification-field small {
+  display: block;
+  margin-top: 5px;
+  font-size: 9px;
+  color: #d94848;
+}
+
+
+/* FOOTER */
+
+.address-verification-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 15px;
+  padding-top: 13px;
+  border-top: 1px solid #eeeaf6;
+}
+
+.address-verification-footer p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  margin: 0;
+
+  font-size: 9px;
+  color: #7b8498;
+}
+
+.address-verification-footer p svg {
+  color: #8060e8;
+  font-size: 11px;
+}
+
+
+/* SAVE BUTTON */
+
+.address-verification-save-btn {
+  min-width: 125px;
+  height: 34px;
+
+  border: 0;
+  border-radius: 6px;
+
+  background: #6535e8;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.address-verification-save-btn:hover {
+  background: #5526d2;
+  transform: translateY(-1px);
+}
+
+.address-verification-save-btn:active {
+  transform: translateY(0);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .address-verification-form {
+    grid-template-columns: 1fr;
+  }
+
+  .address-verification-full {
+    grid-column: auto;
+  }
+
+  .address-verification-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .address-verification-save-btn {
+    width: 100%;
+  }
+}
+
+/* =========================================
+   SECURITY MESSAGE
+========================================= */
+
+.verification-security-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 16px;
+
+  padding: 12px 14px;
+
+  border-radius: 8px;
+
+  background: #f1efff;
+
+  color: #5e3bd4;
+
+  font-size: 10px;
+}
+
+
+.verification-security-message svg {
+  font-size: 15px;
+}
+
+
+/* =========================================
+   RIGHT COLUMN
+========================================= */
+
+.profile-right-column {
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+
+  min-width: 0;
+}
+
+
+/* =========================================
+   PROFILE VERIFICATION
+========================================= */
+
+.profile-verification-card,
+.profile-details-card,
+.guidelines-card,
+.profile-lock-card {
+  background: #ffffff;
+
+  border: 1px solid #eceaf4;
+
+  border-radius: 12px;
+
+  box-shadow: 0 4px 16px rgba(50, 35, 100, 0.04);
+}
+
+
+.profile-verification-card {
+  padding: 18px;
+}
+
+
+.verification-top {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 12px;
+}
+
+
+.verification-shield {
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #e5faf2;
+
+  color: #13a879;
+
+  font-size: 20px;
+}
+
+
+.verification-top h2 {
+  margin: 0 0 5px;
+
+  font-size: 15px;
+}
+
+
+.verification-top p {
+  margin: 0;
+
+  font-size: 10px;
+  line-height: 1.5;
+
+  color: #68738a;
+}
+
+
+/* =========================================
+   PROGRESS
+========================================= */
+
+.verification-progress {
+  display: flex;
+
+  align-items: center;
+
+  gap: 17px;
+
+  margin-top: 20px;
+}
+
+
+.progress-circle {
+  width: 88px;
+  height: 88px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    radial-gradient(
+      circle,
+      white 58%,
+      transparent 59%
+    ),
+    conic-gradient(
+      #6637e8 40%,
+      #e8e1ff 40%
+    );
+}
+
+
+.progress-circle span {
+  font-size: 19px;
+  font-weight: 700;
+
+  color: #17203a;
+}
+
+
+.progress-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 9px;
+}
+
+
+.progress-item {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  font-size: 10px;
+
+  color: #67728b;
+}
+
+
+.progress-item svg {
+  color: #aeb6c7;
+  font-size: 14px;
+}
+
+
+.progress-item.completed svg {
+  color: #15a97b;
+}
+
+
+/* =========================================
+   PROFILE DETAILS
+========================================= */
+
+.profile-details-card {
+  padding: 18px;
+}
+
+
+.right-card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 15px;
+}
+
+
+.right-card-heading h2 {
+  margin: 0;
+
+  font-size: 15px;
+}
+
+
+.right-card-heading button {
+  border: none;
+
+  background: transparent;
+
+  color: #6535e8;
+
+  font-size: 11px;
+
+  cursor: pointer;
+}
+
+
+.profile-detail-item {
+  position: relative;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 11px;
+
+  padding: 9px 0;
+
+  border-bottom: 1px solid #f0eff5;
+}
+
+
+.profile-detail-item:last-child {
+  border-bottom: none;
+}
+
+
+.profile-detail-item > svg {
+  width: 17px;
+
+  margin-top: 3px;
+
+  color: #5364a0;
+
+  font-size: 13px;
+}
+
+
+.profile-detail-item div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+
+  min-width: 0;
+}
+
+
+.profile-detail-item span {
+  font-size: 10px;
+
+  color: #71809c;
+}
+
+
+.profile-detail-item strong {
+  font-size: 11px;
+
+  font-weight: 500;
+
+  color: #1e2943;
+
+  line-height: 1.4;
+}
+
+
+.detail-verified {
+  margin-left: auto;
+
+  padding: 4px 7px;
+
+  border-radius: 20px;
+
+  background: #dff9ef;
+
+  color: #14966f;
+
+  font-size: 8px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================
+   GUIDELINES
+========================================= */
+
+.guidelines-card {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 15px;
+}
+
+
+.guidelines-icon {
+  width: 31px;
+  height: 31px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f0ecff;
+
+  color: #6739df;
+
+  font-size: 13px;
+}
+
+
+.guidelines-card h3 {
+  margin: 0 0 4px;
+
+  font-size: 11px;
+}
+
+
+.guidelines-card p {
+  margin: 0;
+
+  font-size: 9px;
+  line-height: 1.45;
+
+  color: #707b91;
+}
+
+
+.guidelines-arrow {
+  margin-left: auto;
+
+  color: #7b8498;
+
+  font-size: 10px;
+}
+
+
+/* =========================================
+   LOCK CARD
+========================================= */
+
+.profile-lock-card {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 12px;
+
+  padding: 17px;
+
+  background: linear-gradient(
+    135deg,
+    #f5f1ff,
+    #eee8ff
+  );
+}
+
+
+.lock-icon {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #e7ddff;
+
+  color: #6336df;
+
+  font-size: 15px;
+}
+
+
+.profile-lock-card h3 {
+  margin: 0 0 6px;
+
+  font-size: 12px;
+
+  color: #5731d2;
+}
+
+
+.profile-lock-card p {
+  margin: 0;
+
+  font-size: 9px;
+  line-height: 1.5;
+
+  color: #65708a;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1150px) {
+
+  .profile-content-grid {
+    grid-template-columns: 1fr 320px;
+  }
+
+}
+
+
+@media (max-width: 950px) {
+
+  .profile-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-right-column {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .profile-verification-card {
+    grid-column: span 2;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .profile-page {
+    padding: 10px;
+  }
+
+  .profile-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 20px;
+  }
+
+  .profile-main-info {
+    align-items: flex-start;
+  }
+
+  .profile-avatar {
+    width: 90px;
+    height: 90px;
+  }
+
+  .profile-content-grid {
+    display: block;
+  }
+
+  .verification-section {
+    margin-bottom: 16px;
+  }
+
+  .verification-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-right-column {
+    display: flex;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .profile-main-info {
+    flex-direction: column;
+  }
+
+  .profile-name-row h1 {
+    font-size: 21px;
+  }
+
+  .otp-row {
+    flex-direction: column;
+  }
+
+  .verify-otp-btn {
+    width: 100%;
+    height: 36px;
+  }
+
+ 
+
+}
+/* Profile layout with Settings Sidebar */
+.profile-body {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.profile-body .settings-sidebar {
+  flex: 0 0 305px;
+}
+
+.profile-body .profile-page {
+  flex: 1;
+  min-width: 0;
+}
+
+
+
+/* =========================================
+   EMAIL OTP VERIFICATION
+========================================= */
+
+.pending-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 7px 11px;
+
+  border-radius: 20px;
+
+  background: #f4f1ff;
+  color: #ee4242;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.pending-badge svg {
+  font-size: 11px;
+}
+
+.otp-error-message {
+  margin: 9px 0 0;
+
+  color: #dc3545;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.otp-success-message {
+  margin: 9px 0 0;
+
+  color: #12a875;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.email-verified-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 12px;
+  padding: 10px 12px;
+
+  border-radius: 9px;
+
+  background: #ecfdf5;
+  border: 1px solid #c9f2df;
+
+  color: #11966b;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.email-verified-message svg {
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.resend-text span {
+  cursor: pointer;
+  color: #6338e8;
+  font-weight: 700;
+}
+
+.resend-text span:hover {
+  text-decoration: underline;
+}
+
+/* =========================================
+   PHONE NUMBER SAVE
+========================================= */
+
+.save-phone-btn {
+  width: 100%;
+  height: 40px;
+  margin-top: 14px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: linear-gradient(135deg, #7042ee, #5c32db);
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 0 6px 16px rgba(99, 56, 232, 0.18);
+
+  transition: all 0.25s ease;
+}
+
+.save-phone-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 9px 22px rgba(99, 56, 232, 0.25);
+
+  filter: brightness(1.03);
+}
+
+.save-phone-btn:active {
+  transform: translateY(0);
+}
+
+
+/* =========================================
+   PHONE MESSAGE
+========================================= */
+
+.phone-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  margin-top: 11px;
+  padding: 10px 12px;
+
+  border-radius: 8px;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  animation: phoneMessageIn 0.25s ease;
+}
+
+.phone-message svg {
+  flex-shrink: 0;
+  font-size: 13px;
+}
+
+
+/* SUCCESS */
+
+.phone-success {
+  background: #ecfdf5;
+  border: 1px solid #c9f2df;
+  color: #11966b;
+}
+
+
+/* ERROR */
+
+.phone-error {
+  /* background: #fff3f1;
+  border: 1px solid #ffd5d0; 
+  color: #d63b2f;
+} */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-top: 6px;
+
+  font-size: 9px;
+  color: #d94848;
+}
+
+.phone-error svg {
+  font-size: 6px;
+  flex-shrink: 0;
+}
+
+/* MESSAGE ANIMATION */
+
+@keyframes phoneMessageIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Phone input error state */
+.verification-input-row input.input-error {
+  border: 1px solid #dc3545;
+  background: #fffafa;
+}
+
+.verification-input-row input.input-error:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.08);
+}
+
+
+/* =========================================
+   SEND OTP BUTTON
+========================================= */
+
+.send-otp-btn {
+  width: 100%;
+  height: 40px;
+  margin-top: 12px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: linear-gradient(135deg, #7042ee, #5c32db);
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 0 6px 16px rgba(99, 56, 232, 0.18);
+
+  transition: all 0.25s ease;
+}
+
+.send-otp-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 9px 22px rgba(99, 56, 232, 0.25);
+}
+
+.send-otp-btn:active {
+  transform: translateY(0);
+}
+
+
+/* =========================================
+   EMAIL ERROR MESSAGE
+========================================= */
+
+.email-error-message {
+  /* display: flex;
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  margin-top: 10px;
+  padding: 10px 12px;
+
+  border: 1px solid #ffd0cb;
+  border-radius: 8px;
+
+  background: #fff3f1;
+  color: #d63b2f;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  animation: emailErrorIn 0.25s ease;
+}
+
+.email-error-message svg {
+  flex-shrink: 0;
+  font-size: 13px;
+} */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-top: 6px;
+
+  font-size: 9px;
+  color: #d94848;
+}
+
+.email-error-messagesvg {
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+@keyframes emailErrorIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   STUDENT ROLL NUMBER
+========================================= */
+
+.roll-number-card {
+  min-width: 0;
+  padding: 17px;
+  border: 1px solid #e7e5f1;
+  border-radius: 9px;
+  background: #ffffff;
+  transition: 0.25s ease;
+  /* align-self: start;
+  height: fit-content; */
+}
+
+.roll-number-card:hover {
+  border-color: #d8cdfa;
+
+  box-shadow:
+    0 5px 15px rgba(85, 55, 180, 0.06);
+}
+
+
+/* ---------- Heading ---------- */
+
+.roll-number-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+
+/* ---------- Icon ---------- */
+
+.roll-number-icon {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f0ebff;
+  color: #6535e8;
+
+  font-size: 16px;
+}
+
+
+/* ---------- Heading text ---------- */
+
+.roll-number-heading h3 {
+  margin: 0 0 5px;
+
+  font-size: 14px;
+  font-weight: 650;
+
+  color: #17203a;
+}
+
+.roll-number-heading p {
+  margin: 0;
+
+  font-size: 11px;
+  line-height: 1.45;
+
+  color: #68738a;
+}
+
+
+/* ---------- Input wrapper ---------- */
+
+.roll-number-input-wrapper {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+}
+
+
+/* ---------- Roll number input ---------- */
+
+.roll-number-input-wrapper input {
+  width: 100%;
+  height: 37px;
+
+  padding: 0 40px 0 12px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #dfe2ed;
+  border-radius: 6px;
+
+  background: #ffffff;
+
+  color: #1c2741;
+
+  font-size: 12px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+/* Input focus */
+
+.roll-number-input-wrapper input:focus {
+  border-color: #7042e8;
+
+  box-shadow:
+    0 0 0 2px rgba(112, 66, 232, 0.08);
+}
+
+
+/* Disabled after submission */
+
+.roll-number-input-wrapper input:disabled {
+  background: #f8f9fc;
+  color: #39435d;
+  cursor: not-allowed;
+}
+
+
+/* ---------- Green check ---------- */
+
+.roll-number-check {
+  position: absolute;
+
+  right: 13px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #20a464;
+
+  font-size: 17px;
+}
+
+.roll-number-check svg {
+  color: #20a464;
+}
+
+
+/* ---------- Submit button ---------- */
+
+.roll-number-submit-btn {
+  width: 100%;
+  height: 40px;
+
+  margin-top: 12px;
+
+  border: none;
+  border-radius: 8px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #7042ee,
+      #5c32db
+    );
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 6px 16px rgba(99, 56, 232, 0.18);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+/* Button hover */
+
+.roll-number-submit-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 9px 22px rgba(99, 56, 232, 0.25);
+}
+
+
+/* Button click */
+
+.roll-number-submit-btn:active {
+  transform: translateY(0);
+}
+/* Roll Number Error Input */
+.roll-number-input-wrapper input.roll-number-input-error {
+  border: 1px solid #dc3545;
+  background: #fffafa;
+}
+
+.roll-number-input-wrapper input.roll-number-input-error:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.08);
+}
+
+
+/* Roll Number Error Message */
+
+.roll-number-error-message {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-top: 6px;
+
+  font-size: 9px;
+  color: #d94848;
+}
+
+.roll-number-error-message svg {
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+
+/* Error Animation */
+@keyframes rollNumberErrorIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================
+   COLLEGE / UNIVERSITY VERIFICATION
+========================================= */
+
+.college-verification-card {
+  min-width: 0;
+  padding: 17px;
+  border: 1px solid #e7e5f1;
+  border-radius: 9px;
+  background: #ffffff;
+  transition: 0.25s ease;
+}
+
+.college-verification-card:hover {
+  border-color: #d8cdfa;
+  box-shadow: 0 5px 15px rgba(85, 55, 180, 0.06);
+}
+
+.college-verification-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 17px;
+}
+
+.college-verification-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: #f0ebff;
+  color: #6535e8;
+  font-size: 15px;
+}
+
+.college-verification-heading h3 {
+  margin: 0 0 5px;
+  font-size: 14px;
+  font-weight: 650;
+  color: #17203a;
+}
+
+.college-verification-heading p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.45;
+  color: #68738a;
+}
+
+.college-verification-field {
+  width: 100%;
+}
+
+.college-verification-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 10px;
+  font-weight: 650;
+  color: #4d5872;
+}
+
+.college-verification-field input {
+  width: 100%;
+  height: 36px;
+  box-sizing: border-box;
+
+  padding: 9px 10px;
+
+  border: 1px solid #dddbea;
+  border-radius: 6px;
+
+  background: #ffffff;
+  color: #20283d;
+
+  font-family: inherit;
+  font-size: 11px;
+
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.college-verification-field input:focus {
+  border-color: #8060e8;
+  box-shadow: 0 0 0 3px rgba(112, 64, 237, 0.08);
+}
+
+.college-verification-field input::placeholder {
+  color: #a1a6b5;
+}
+
+.college-verification-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+  margin-top: 15px;
+  padding-top: 13px;
+
+  border-top: 1px solid #eeeaf6;
+}
+
+.college-verification-footer p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  margin: 0;
+
+  font-size: 9px;
+  color: #7b8498;
+}
+
+.college-verification-footer p svg {
+  color: #8060e8;
+  font-size: 11px;
+}
+
+.college-verification-submit-btn {
+  min-width: 155px;
+  height: 34px;
+
+  padding: 0 14px;
+
+  border: 0;
+  border-radius: 6px;
+
+  background: #6535e8;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.college-verification-submit-btn:hover {
+  background: #5526d2;
+  transform: translateY(-1px);
+}
+
+.college-verification-submit-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  .college-verification-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .college-verification-submit-btn {
+    width: 100%;
+  }
+}
+
+/* =========================================
+   COLLEGE VERIFICATION - INPUT
+========================================= */
+
+.college-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.college-verification-field input {
+  width: 100%;
+  height: 36px;
+  box-sizing: border-box;
+
+  padding: 9px 38px 9px 10px;
+
+  border: 1px solid #dddbea;
+  border-radius: 6px;
+
+  background: #ffffff;
+  color: #20283d;
+
+  font-family: inherit;
+  font-size: 11px;
+
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.college-verification-field input:focus {
+  border-color: #8060e8;
+
+  box-shadow:
+    0 0 0 3px rgba(112, 64, 237, 0.08);
+}
+
+.college-verification-field input::placeholder {
+  color: #a1a6b5;
+}
+
+
+/* =========================================
+   COLLEGE ERROR
+========================================= */
+
+.college-verification-field input.college-input-error {
+  border-color: #e05252;
+  background: #fffafa;
+
+  box-shadow:
+    0 0 0 3px rgba(224, 82, 82, 0.06);
+}
+
+.college-verification-error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-top: 6px;
+
+  font-size: 9px;
+  color: #d94848;
+}
+
+.college-verification-error svg {
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+
+/* =========================================
+   BLUE CHECK
+========================================= */
+
+.college-verification-check {
+  position: absolute;
+
+  top: 50%;
+  right: 11px;
+
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #20a464;
+  font-size: 16px;
+}
+
+
+/* =========================================
+   SUBMITTED STATUS
+========================================= */
+
+.college-submitted-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  height: 34px;
+  padding: 0 12px;
+
+  border-radius: 6px;
+
+  background: #eff6ff;
+  color: #20a464;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.college-submitted-status svg {
+  font-size: 12px;
+}
+
+
+/* =========================================
+   FINAL VERIFICATION
+========================================= */
+
+.final-verification-card {
+  margin-top: 16px;
+  padding: 17px;
+
+  border: 1px solid #dcd7f0;
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  box-shadow: 0 4px 14px rgba(70, 45, 140, 0.04);
+}
+
+.final-verification-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.final-verification-icon {
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f0ebff;
+  color: #6535e8;
+
+  font-size: 16px;
+}
+
+.final-verification-content h3 {
+  margin: 0 0 5px;
+
+  font-size: 14px;
+  font-weight: 650;
+
+  color: #17203a;
+}
+
+.final-verification-content p {
+  margin: 0;
+
+  font-size: 10px;
+  line-height: 1.5;
+
+  color: #68738a;
+}
+
+
+/* ERROR */
+
+.final-verification-error {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-top: 13px;
+  padding: 9px 11px;
+
+  border: 1px solid #f0b5b5;
+  border-radius: 6px;
+
+  background: #fff7f7;
+
+  color: #d94848;
+
+  font-size: 10px;
+}
+
+.final-verification-error svg {
+  font-size: 11px;
+}
+
+
+/* FINAL BUTTON */
+
+.final-verification-btn {
+  width: 100%;
+  height: 38px;
+
+  margin-top: 15px;
+
+  border: 0;
+  border-radius: 7px;
+
+  background: #6535e8;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.final-verification-btn:hover {
+  background: #5526d2;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 6px 15px rgba(101, 53, 232, 0.18);
+}
+
+.final-verification-btn:active {
+  transform: translateY(0);
+}
+
+
+/* SUCCESS */
+
+.final-verification-success {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 15px;
+  padding: 12px;
+
+  border: 1px solid #b9e5cb;
+  border-radius: 7px;
+
+  background: #f3fcf6;
+}
+
+.final-success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #20a464;
+
+  font-size: 20px;
+}
+
+.final-verification-success > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  flex: 1;
+}
+
+.final-verification-success strong {
+  font-size: 11px;
+  color: #176b43;
+}
+
+.final-verification-success span {
+  font-size: 9px;
+  color: #648070;
+}
+
+
+/* PENDING BADGE */
+
+.final-pending-badge {
+  flex-shrink: 0;
+
+  padding: 5px 9px;
+
+  border-radius: 20px;
+
+  background: #fff4d6;
+  color: #a66a00;
+
+  font-size: 9px !important;
+  font-weight: 700;
+}
+
+
+
+
+
+
+
+.field-error-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid #ffd0cb;
+  border-radius: 8px;
+  background: #fff3f1;
+  color: #d63b2f;
+  font-size: 11px;
+  font-weight: 600;
+  animation: fieldErrorIn 0.25s ease;
+}
+
+.field-error-message svg {
+  flex-shrink: 0;
+  font-size: 13px;
+}
+
+@keyframes fieldErrorIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================
+   PROFILE PAGE + FIXED SETTINGS SIDEBAR
+========================================= */
+
+.profile-layout {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.profile-body {
+  width: 100%;
+  height: calc(100vh - 72px);
+
+  display: block;
+
+  overflow: hidden;
+}
+
+/* SettingsSidebar is fixed separately.
+   Profile content must leave 305px for it. */
+
+.profile-body .profile-page {
+  width: calc(100% - 305px);
+  margin-left: 305px;
+
+  height: 100%;
+
+  min-width: 0;
+
+  padding: 18px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  box-sizing: border-box;
+}
+/* =========================================
+   MOBILE VIEW
+========================================= */
+
+@media (max-width: 768px) {
+  .profile-layout {
+    height: auto;
+    overflow: visible;
+  }
+
+  .profile-body {
+    height: auto;
+    overflow: visible;
+    display: block;
+  }
+
+  .profile-body .settings-sidebar {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .profile-body .profile-page {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+}
+
+.profile-detail-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-detail-content input,
+.profile-detail-content textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  margin-top: 5px;
+  padding: 8px 10px;
+
+  border: 1px solid #dddbea;
+  border-radius: 6px;
+
+  background: #ffffff;
+  color: #17203a;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  outline: none;
+
+  transition: 0.2s ease;
+}
+
+.profile-detail-content input:focus,
+.profile-detail-content textarea:focus {
+  border-color: #7042ee;
+  box-shadow: 0 0 0 3px rgba(112, 66, 238, 0.08);
+}
+
+.profile-detail-content textarea {
+  height: 65px;
+  resize: none;
+}
+
+
+/* Edit actions */
+
+.profile-details-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.details-cancel-btn,
+.details-save-btn {
+  height: 30px;
+  padding: 0 11px;
+
+  border-radius: 6px;
+
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.details-cancel-btn {
+  border: 1px solid #dddbea;
+  background: #ffffff;
+  color: #68738a;
+}
+
+.details-save-btn {
+  border: none;
+  background: #6535e8;
+  color: #ffffff;
+}
+.profile-detail-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-detail-content input,
+.profile-detail-content textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 7px 9px;
+  margin-top: 2px;
+
+  border: 1px solid #dddbea;
+  border-radius: 6px;
+
+  background: #ffffff;
+  color: #1e2943;
+
+  font-family: inherit;
+  font-size: 11px;
+
+  outline: none;
+}
+
+.profile-detail-content input:focus,
+.profile-detail-content textarea:focus {
+  border-color: #6535e8;
+}
+
+.profile-detail-content textarea {
+  min-height: 55px;
+  resize: vertical;
+}
+
+
+/* SAVE / CANCEL */
+
+.profile-details-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.details-cancel-btn,
+.details-save-btn {
+  border-radius: 6px !important;
+  padding: 6px 10px !important;
+
+  font-size: 10px !important;
+  cursor: pointer;
+}
+
+.details-cancel-btn {
+  border: 1px solid #dddbea !important;
+  background: #ffffff !important;
+  color: #68738a !important;
+}
+
+/* .details-save-btn {
+  border: none !important;
+  background: #6535e8 !important;
+  color: #ffffff !important;
+} */

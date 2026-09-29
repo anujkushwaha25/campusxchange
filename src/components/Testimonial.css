@@ -1,0 +1,301 @@
+.testimonial{
+
+    padding:100px 8%;
+
+    background:#ffffff;
+
+}
+
+.testimonial-heading{
+
+    text-align:center;
+
+    margin-bottom:70px;
+
+}
+
+.testimonial-heading span{
+
+    display:inline-block;
+
+    padding:10px 22px;
+
+    background:#eef2ff;
+
+    color:#4f46e5;
+
+    border-radius:40px;
+
+    font-weight:600;
+
+    margin-bottom:20px;
+
+}
+
+.testimonial-heading h2{
+
+    font-size:48px;
+
+    color:#111827;
+
+    line-height:1.2;
+
+    margin-bottom:18px;
+
+}
+
+.testimonial-heading p{
+
+    width:60%;
+
+    margin:auto;
+
+    color:#6b7280;
+
+    font-size:18px;
+
+    line-height:1.8;
+
+}
+
+.testimonial-container{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:35px;
+
+}
+
+.testimonial-card{
+
+    position:relative;
+
+    background:#ffffff;
+
+    padding:35px;
+
+    border-radius:24px;
+
+    border:1px solid #ececec;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+
+    transition:.35s;
+
+    overflow:hidden;
+
+}
+
+.testimonial-card:hover{
+
+    transform:translateY(-12px);
+
+    box-shadow:0 20px 45px rgba(79,70,229,.18);
+
+}
+
+.quote{
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:50%;
+
+    background:#eef2ff;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.quote svg{
+
+    font-size:28px;
+
+    color:#4f46e5;
+
+}
+
+.stars{
+
+    display:flex;
+
+    gap:5px;
+
+    margin-bottom:22px;
+
+}
+
+.stars svg{
+
+    color:#fbbf24;
+
+    font-size:18px;
+
+}
+
+.review{
+
+    font-size:17px;
+
+    color:#6b7280;
+
+    line-height:1.9;
+
+    margin-bottom:35px;
+
+}
+
+.student{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+.student img{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:4px solid #eef2ff;
+
+    transition:.35s;
+
+}
+
+.testimonial-card:hover .student img{
+
+    border-color:#4f46e5;
+
+    transform:scale(1.08);
+
+}
+
+.student h4{
+
+    font-size:20px;
+
+    color:#111827;
+
+    margin-bottom:6px;
+
+}
+
+.student span{
+
+    color:#6b7280;
+
+    font-size:15px;
+
+}
+
+/*==========================
+        RESPONSIVE
+===========================*/
+
+@media(max-width:1100px){
+
+.testimonial-container{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+.testimonial-heading p{
+
+width:85%;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.testimonial{
+
+padding:80px 20px;
+
+}
+
+.testimonial-heading h2{
+
+font-size:34px;
+
+}
+
+.testimonial-heading p{
+
+width:100%;
+
+font-size:16px;
+
+}
+
+.testimonial-container{
+
+grid-template-columns:1fr;
+
+gap:25px;
+
+}
+
+.testimonial-card{
+
+padding:28px;
+
+}
+
+}
+
+@media(max-width:480px){
+
+.testimonial-heading span{
+
+font-size:14px;
+
+}
+
+.testimonial-heading h2{
+
+font-size:28px;
+
+}
+
+.review{
+
+font-size:15px;
+
+}
+
+.student img{
+
+width:60px;
+
+height:60px;
+
+}
+
+.student h4{
+
+font-size:18px;
+
+}
+
+}

@@ -1,0 +1,779 @@
+/*===============================
+        GOOGLE FONT
+================================*/
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+/*===============================
+            RESET
+================================*/
+
+/* scoped to this page's own wrapper only -- a bare `*` or `body`
+   selector here would apply to every route in the app the moment
+   this file is bundled, not just while /login is showing, which is
+   what was pushing other pages' navbars around */
+.auth-page,
+.auth-page *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/*===============================
+          MAIN SECTION
+================================*/
+
+.auth-page{
+
+    width:100%;
+    min-height:100vh;
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+
+    font-family:"Poppins",sans-serif;
+    background:#f5f7ff;
+    overflow-x:hidden;
+
+}
+
+/*===============================
+            LEFT SIDE
+================================*/
+
+.auth-left{
+
+    position:relative;
+
+    background:linear-gradient(
+        135deg,
+        #4f46e5,
+        #7c3aed,
+        #2563eb);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    overflow:hidden;
+
+}
+
+.auth-overlay{
+
+    position:absolute;
+
+    width:650px;
+    height:650px;
+
+    background:rgba(255,255,255,.08);
+
+    border-radius:50%;
+
+    top:-180px;
+    right:-150px;
+
+}
+
+.auth-overlay::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:350px;
+    height:350px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+    left:-140px;
+    bottom:-100px;
+
+}
+
+.auth-left-content{
+
+    width:80%;
+
+    color:#fff;
+
+    position:relative;
+
+    z-index:2;
+
+    animation:authFadeLeft .8s ease;
+
+}
+
+.auth-logo{
+
+    display:block;
+
+    font-size:34px;
+    font-weight:800;
+
+    margin-bottom:40px;
+
+}
+
+.auth-logo span{
+
+    color:#ffe600;
+
+}
+
+.auth-left-content h1{
+
+    font-size:70px;
+
+    line-height:1.1;
+
+    margin-bottom:25px;
+
+}
+
+.auth-left-content p{
+
+    font-size:18px;
+
+    opacity:.9;
+
+    line-height:1.8;
+
+    max-width:520px;
+
+}
+
+/*===============================
+            STATS
+================================*/
+
+.auth-stats{
+
+    display:flex;
+
+    gap:20px;
+
+    margin-top:60px;
+
+}
+
+.auth-stat-card{
+
+    min-width:140px;
+
+    padding:22px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.15);
+
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,.2);
+
+}
+
+.auth-stat-card h3{
+
+    font-size:28px;
+
+    margin-bottom:6px;
+
+}
+
+.auth-stat-card p{
+
+    font-size:14px;
+
+    opacity:.85;
+
+}
+
+/*===============================
+            RIGHT SIDE
+================================*/
+
+.auth-right{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    min-height:100vh;
+    max-height:100vh;
+
+    background:#f8f9ff;
+
+    padding:20px 60px;
+
+    overflow-y:auto;
+
+    /* hide the scrollbar but keep the column scrollable
+       on short windows -- delete these two blocks if you
+       would rather see a normal bar */
+    scrollbar-width:none;
+
+}
+
+.auth-right::-webkit-scrollbar{
+    display:none;
+}
+
+.auth-card{
+
+    width:100%;
+    max-width:480px;
+
+    background:#ffffff;
+
+    padding:36px 40px;
+
+    border-radius:30px;
+
+    box-shadow:0 20px 60px rgba(0,0,0,.08);
+
+    animation:authFadeUp .8s ease;
+
+}
+
+.auth-card h2{
+
+    font-size:38px;
+
+    color:#111827;
+
+    margin-bottom:10px;
+
+}
+
+.auth-subtitle{
+
+    color:#6b7280;
+
+    margin-bottom:26px;
+
+    font-size:16px;
+
+}
+
+/*===============================
+            INPUTS
+================================*/
+
+.auth-input-box{
+
+    position:relative;
+
+    margin-bottom:6px;
+
+}
+
+.auth-input-box input{
+
+    width:100%;
+
+    height:58px;
+
+    padding-left:55px;
+    padding-right:55px;
+
+    border:2px solid #e5e7eb;
+
+    border-radius:15px;
+
+    outline:none;
+
+    font-size:16px;
+
+    transition:.3s;
+
+    background:#fff;
+
+}
+
+.auth-input-box input:focus{
+
+    border-color:#4f46e5;
+
+    box-shadow:0 0 0 5px rgba(79,70,229,.12);
+
+}
+
+.auth-input-box input::placeholder{
+
+    color:#888;
+
+}
+
+/* error state lives on the input, not the wrapper,
+   so nothing shifts by a pixel when it turns on */
+.auth-input-box input.auth-input-error{
+
+    border-color:#dc3545;
+
+    background:#fffafa;
+
+}
+
+.auth-input-box input.auth-input-error:focus{
+
+    border-color:#dc3545;
+
+    box-shadow:0 0 0 5px rgba(220,53,69,.12);
+
+}
+
+.auth-input-box.auth-has-error .auth-icon{
+
+    color:#dc3545;
+
+}
+
+.auth-icon{
+
+    position:absolute;
+
+    left:20px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#7c3aed;
+
+    font-size:18px;
+
+}
+
+.auth-eye{
+
+    position:absolute;
+
+    right:20px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    cursor:pointer;
+
+    color:#777;
+
+    font-size:18px;
+
+    transition:.3s;
+
+}
+
+.auth-eye:hover{
+
+    color:#6d28d9;
+
+}
+
+/*===============================
+        ERROR MESSAGE
+================================*/
+
+.auth-error{
+
+    display:flex;
+    align-items:center;
+    gap:7px;
+
+    min-height:20px;
+
+    padding:2px 4px 0 6px;
+    margin-bottom:6px;
+
+    color:#d93025;
+
+    font-size:12.5px;
+    font-weight:500;
+
+    animation:authErrorIn .2s ease;
+
+}
+
+.auth-error svg{
+
+    flex-shrink:0;
+
+    font-size:12px;
+
+}
+
+/* reserves the same height when there is no message,
+   so the card does not jump as errors appear */
+.auth-error-slot{
+
+    min-height:20px;
+
+    margin-bottom:6px;
+
+}
+
+@keyframes authErrorIn{
+
+    from{ opacity:0; transform:translateY(-3px); }
+    to{ opacity:1; transform:translateY(0); }
+
+}
+
+.auth-input-box.auth-shake{
+
+    animation:authShake .4s ease;
+
+}
+
+@keyframes authShake{
+
+    0%,100%{ transform:translateX(0); }
+    20%{ transform:translateX(-6px); }
+    40%{ transform:translateX(6px); }
+    60%{ transform:translateX(-4px); }
+    80%{ transform:translateX(4px); }
+
+}
+
+@media(prefers-reduced-motion:reduce){
+
+    .auth-input-box.auth-shake,
+    .auth-error,
+    .auth-card,
+    .auth-left-content{
+        animation:none;
+    }
+
+}
+
+/*===============================
+            REMEMBER
+================================*/
+
+.auth-remember{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin:6px 0 22px;
+
+    font-size:15px;
+
+}
+
+.auth-remember label{
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    color:#555;
+
+    cursor:pointer;
+
+}
+
+.auth-remember input{
+
+    width:18px;
+    height:18px;
+
+    accent-color:#4f46e5;
+
+}
+
+.auth-remember a{
+
+    text-decoration:none;
+
+    color:#4f46e5;
+
+    font-weight:600;
+
+}
+
+.auth-remember a:hover{
+
+    text-decoration:underline;
+
+}
+
+/*===============================
+        LOGIN BUTTON
+================================*/
+
+.auth-login-btn{
+
+    width:100%;
+
+    height:58px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:linear-gradient(
+        90deg,
+        #4f46e5,
+        #7c3aed);
+
+    color:#fff;
+
+    font-size:17px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+}
+
+.auth-login-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 18px 35px rgba(79,70,229,.35);
+
+}
+
+.auth-login-btn:disabled{
+
+    opacity:.65;
+
+    cursor:not-allowed;
+
+}
+
+.auth-login-btn:disabled:hover{
+
+    transform:none;
+
+    box-shadow:none;
+
+}
+
+.auth-login-btn:focus-visible,
+.auth-remember input:focus-visible{
+
+    outline:3px solid #4f46e5;
+
+    outline-offset:3px;
+
+}
+
+/*===============================
+        SUCCESS BANNER
+================================*/
+
+.auth-success{
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:13px 16px;
+    margin-bottom:18px;
+
+    border:1px solid #bbf7d0;
+    border-radius:14px;
+
+    background:#f0fdf4;
+
+    color:#15803d;
+
+    font-size:14.5px;
+
+}
+
+/*===============================
+            DIVIDER
+================================*/
+
+.auth-divider{
+
+    margin:26px 0;
+
+    display:flex;
+    align-items:center;
+
+    color:#888;
+
+}
+
+.auth-divider::before,
+.auth-divider::after{
+
+    content:"";
+
+    flex:1;
+
+    height:1px;
+
+    background:#ddd;
+
+}
+
+.auth-divider span{
+
+    margin:0 18px;
+
+}
+
+/*===============================
+        BOTTOM TEXT
+================================*/
+
+.auth-bottom-text{
+
+    text-align:center;
+
+    color:#666;
+
+    font-size:15px;
+
+}
+
+.auth-bottom-text a{
+
+    color:#4f46e5;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+}
+
+.auth-bottom-text a:hover{
+
+    text-decoration:underline;
+
+}
+
+/*===============================
+        ANIMATIONS
+================================*/
+
+@keyframes authFadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(60px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes authFadeLeft{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(-60px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateX(0);
+
+    }
+
+}
+
+/*===============================
+        RESPONSIVE
+================================*/
+
+@media(max-height:820px){
+
+    .auth-card{
+        padding:28px 32px;
+    }
+
+    .auth-card h2{
+        font-size:32px;
+    }
+
+    .auth-subtitle{
+        margin-bottom:20px;
+    }
+
+}
+
+@media(max-width:1100px){
+
+    .auth-page{
+        grid-template-columns:1fr;
+    }
+
+    .auth-left{
+        display:none;
+    }
+
+    .auth-right{
+        padding:30px 20px;
+    }
+
+    .auth-card{
+        max-width:520px;
+        padding:36px 30px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .auth-card{
+        padding:32px 25px;
+        border-radius:20px;
+    }
+
+    .auth-card h2{
+        font-size:30px;
+    }
+
+    .auth-subtitle{
+        font-size:15px;
+    }
+
+    .auth-remember{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .auth-card{
+        padding:28px 20px;
+    }
+
+    .auth-input-box input{
+        height:54px;
+        font-size:15px;
+    }
+
+    .auth-login-btn{
+        height:54px;
+        font-size:15px;
+    }
+
+}

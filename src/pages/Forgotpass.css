@@ -1,0 +1,553 @@
+/*=========================================
+        GOOGLE FONT
+=========================================*/
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+
+/*=========================================
+            RESET
+=========================================*/
+
+.forgot-page,
+.forgot-page * {
+    box-sizing: border-box;
+}
+
+.forgot-page {
+    width: 100%;
+    height: 100vh;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    font-family: "Poppins", sans-serif;
+
+    overflow: hidden;
+}
+
+
+/*=========================================
+            LEFT SIDE
+=========================================*/
+
+.forgot-left {
+
+    position: relative;
+
+    background: linear-gradient(
+        135deg,
+        #4f46e5,
+        #7c3aed,
+        #2563eb
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    color: white;
+}
+
+
+/*=========================================
+            BACKGROUND CIRCLES
+=========================================*/
+
+.forgot-overlay {
+
+    position: absolute;
+
+    width: 650px;
+    height: 650px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.08);
+
+    top: -180px;
+    right: -150px;
+
+}
+
+.forgot-overlay::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+    height: 350px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.08);
+
+    left: -140px;
+    bottom: -100px;
+
+}
+
+
+/*=========================================
+            LEFT CONTENT
+=========================================*/
+
+.forgot-content {
+
+    width: 80%;
+
+    position: relative;
+
+    z-index: 2;
+
+    animation: forgotLeft .8s ease;
+
+}
+
+.forgot-logo {
+
+    font-size: 34px;
+
+    font-weight: 800;
+
+    margin-bottom: 45px;
+
+}
+
+.forgot-logo span {
+
+    color: #ffe600;
+
+}
+
+.forgot-content h1 {
+
+    font-size: 65px;
+
+    line-height: 1.1;
+
+    margin-bottom: 25px;
+
+}
+
+.forgot-content > p {
+
+    max-width: 520px;
+
+    font-size: 18px;
+
+    line-height: 1.8;
+
+    opacity: .9;
+
+}
+
+
+/*=========================================
+                STATS
+=========================================*/
+
+.forgot-stats {
+
+    display: flex;
+
+    gap: 20px;
+
+    margin-top: 55px;
+
+}
+
+.forgot-stat {
+
+    min-width: 140px;
+
+    padding: 20px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,.15);
+
+    backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255,255,255,.2);
+
+}
+
+.forgot-stat h3 {
+
+    font-size: 28px;
+
+    margin-bottom: 5px;
+
+}
+
+.forgot-stat p {
+
+    font-size: 14px;
+
+    opacity: .85;
+
+}
+
+
+/*=========================================
+            RIGHT SIDE
+=========================================*/
+
+.forgot-right {
+
+    background: #f8f9ff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+
+    overflow: hidden;
+
+}
+
+
+/*=========================================
+            CARD
+=========================================*/
+
+.forgot-card {
+
+    width: 100%;
+
+    max-width: 500px;
+
+    background: white;
+
+    padding: 45px;
+
+    border-radius: 30px;
+
+    box-shadow: 0 20px 60px rgba(0,0,0,.08);
+
+    animation: forgotUp .8s ease;
+
+}
+
+.forgot-card h2 {
+
+    font-size: 38px;
+
+    color: #111827;
+
+    margin-bottom: 12px;
+
+}
+
+.forgot-subtitle {
+
+    color: #6b7280;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+
+    margin-bottom: 35px;
+
+}
+
+
+/*=========================================
+            INPUT
+=========================================*/
+
+.forgot-input-box {
+
+    position: relative;
+
+    margin-bottom: 22px;
+
+}
+
+.forgot-input-box input {
+
+    width: 100%;
+
+    height: 62px;
+
+    padding: 0 20px 0 55px;
+
+    border: 2px solid #e5e7eb;
+
+    border-radius: 15px;
+
+    outline: none;
+
+    font-size: 16px;
+
+    font-family: "Poppins", sans-serif;
+
+    transition: .3s;
+
+}
+
+.forgot-input-box input:focus {
+
+    border-color: #4f46e5;
+
+    box-shadow: 0 0 0 5px rgba(79,70,229,.12);
+
+}
+
+.forgot-icon {
+
+    position: absolute;
+
+    left: 20px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #7c3aed;
+
+    font-size: 18px;
+
+}
+
+
+/*=========================================
+            BUTTON
+=========================================*/
+
+.forgot-btn {
+
+    width: 100%;
+
+    height: 60px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background: linear-gradient(
+        90deg,
+        #4f46e5,
+        #7c3aed
+    );
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    font-family: "Poppins", sans-serif;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-decoration: none;
+
+    transition: .35s;
+
+}
+
+.forgot-btn:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 15px 30px rgba(79,70,229,.3);
+
+}
+
+
+/*=========================================
+            BACK TO LOGIN
+=========================================*/
+
+.forgot-back {
+
+    text-align: center;
+
+    margin-top: 28px;
+
+}
+
+.forgot-back a {
+
+    color: #4f46e5;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+.forgot-back a:hover {
+
+    text-decoration: underline;
+
+}
+
+
+/*=========================================
+            SUCCESS
+=========================================*/
+
+.forgot-success {
+
+    text-align: center;
+
+}
+
+.success-icon {
+
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 20px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #4f46e5;
+
+    color: white;
+
+    font-size: 35px;
+
+    font-weight: 700;
+
+}
+
+.forgot-success h2 {
+
+    margin-bottom: 15px;
+
+}
+
+.forgot-success p {
+
+    color: #6b7280;
+
+    line-height: 1.7;
+
+    margin-bottom: 30px;
+
+}
+
+.success-btn {
+
+    margin-top: 10px;
+
+}
+
+
+/*=========================================
+            ANIMATIONS
+=========================================*/
+
+@keyframes forgotLeft {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateX(-50px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateX(0);
+
+    }
+
+}
+
+@keyframes forgotUp {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(50px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+/*=========================================
+            RESPONSIVE
+=========================================*/
+
+@media(max-width:1100px) {
+
+    .forgot-page {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .forgot-left {
+
+        display: none;
+
+    }
+
+    .forgot-right {
+
+        min-height: 100vh;
+
+        padding: 25px;
+
+    }
+
+}
+
+@media(max-width:600px) {
+
+    .forgot-card {
+
+        padding: 30px 22px;
+
+        border-radius: 22px;
+
+    }
+
+    .forgot-card h2 {
+
+        font-size: 30px;
+
+    }
+
+}

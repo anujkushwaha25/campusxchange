@@ -1,0 +1,414 @@
+/* =========================================================
+   TOP NAVBAR
+========================================================= */
+
+.sell-topbar {
+  height: 63px;
+  background: #ffffff;
+  border-bottom: 1px solid #e9e9f3;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 30px;
+
+  gap: 35px;
+
+  position: sticky;
+  top: 0;
+
+  z-index: 1000;
+
+
+  
+}
+/*.sell-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;                                     ////for making a navbar fixed
+  
+  right: 0;
+
+  width: 100%;
+  height: 63px;
+
+  background: #ffffff;
+  border-bottom: 1px solid #e9e9f3;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 30px;
+  gap: 35px;
+
+  box-sizing: border-box;
+  z-index: 1000;
+}*/
+
+
+/* Logo */
+
+.sell-brand {
+  width: 275px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  text-decoration: none;
+  color: #17182b;
+
+  flex-shrink: 0;
+}
+
+.sell-brand-icon {
+  width: 45px;
+  height: 45px;
+
+  border-radius: 14px;
+
+  background: linear-gradient(
+    135deg,
+    #5d2df5,
+    #733cff
+  );
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 23px;
+
+  box-shadow:
+    0 8px 20px rgba(93, 45, 245, 0.25);
+}
+
+.sell-brand h2 {
+  margin: 0;
+
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.sell-brand h2 span {
+  color: #5c2df5;
+}
+
+.sell-brand p {
+  margin: 1px 0 0;
+
+  font-size: 11px;
+
+  color: #777b91;
+}
+
+
+/* Search */
+
+.sell-search {
+  height: 46px;
+
+  max-width: 520px;
+
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  border: 1px solid #dedfea;
+
+  border-radius: 14px;
+
+  padding: 0 17px;
+
+  background: #ffffff;
+
+  transition: 0.25s;
+}
+
+.sell-search:focus-within {
+  border-color: #6736f4;
+
+  box-shadow:
+    0 0 0 4px rgba(103, 54, 244, 0.08);
+}
+
+.sell-search svg {
+  color: #697086;
+}
+
+.sell-search input {
+  width: 100%;
+
+  border: none;
+  outline: none;
+
+  font-size: 14px;
+
+  color: #1b1d2d;
+
+  background: transparent;
+}
+
+.sell-search input::placeholder {
+  color: #8a8ea1;
+}
+
+
+/* Right navbar */
+
+.sell-nav-right {
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+
+  margin-left: auto;
+}
+
+
+/* Listing button */
+
+.top-my-listing-button {
+  border: none;
+
+  height: 44px;
+
+  padding: 0 20px;
+
+  border-radius: 12px;
+
+  background: linear-gradient(
+    135deg,
+    #5724e8,
+    #713df8
+  );
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 20px rgba(93, 45, 245, 0.22);
+
+  transition: 0.25s;
+}
+
+.top-my-listing-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 25px rgba(93, 45, 245, 0.3);
+}
+
+
+/* Navbar icons */
+
+.nav-message-btn {
+  position: relative;
+
+  width: 42px;
+  height: 42px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #16192b;
+
+  font-size: 19px;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  transition: 0.2s;
+}
+
+.nav-message-btn:hover {
+  background: #f2efff;
+
+  color: #5d2df5;
+}
+
+.nav-message-btn span {
+  position: absolute;
+
+  top: 1px;
+  right: 1px;
+
+  width: 17px;
+  height: 17px;
+
+  background: #5b2cf5;
+
+  color: white;
+
+  font-size: 9px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.profile-wrapper {
+  position: relative;
+}
+
+.profile-button {
+  border: none;
+
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  cursor: pointer;
+
+  font-family: inherit;
+}
+
+.profile-initial {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  background: #f0ebff;
+
+  color: #5c2df5;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-name {
+  font-size: 13px;
+
+  color: #191b2b;
+}
+
+.profile-button > svg {
+  font-size: 11px;
+
+  color: #676b80;
+}
+
+
+/* Dropdown */
+
+.profile-dropdown {
+  position: absolute;
+
+  top: 55px;
+  right: 0;
+
+  width: 205px;
+
+  background: white;
+
+  border: 1px solid #e7e5ef;
+
+  border-radius: 14px;
+
+  padding: 8px;
+
+  box-shadow:
+    0 15px 40px rgba(35, 25, 80, 0.14);
+
+  z-index: 2000;
+}
+
+.profile-dropdown a,
+.profile-dropdown button {
+  width: 100%;
+
+  min-height: 42px;
+
+  padding: 0 12px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  border: none;
+
+  background: transparent;
+
+  border-radius: 9px;
+
+  text-decoration: none;
+
+  color: #292b3e;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  cursor: pointer;
+
+  text-align: left;
+}
+
+.profile-dropdown a:hover,
+.profile-dropdown button:hover {
+  background: #f4f1ff;
+
+  color: #5d2df5;
+}
+
+.profile-dropdown svg {
+  width: 16px;
+}
+
+.dropdown-divider {
+  height: 1px;
+
+  background: #eeeeF5;
+
+  margin: 6px 4px;
+}
+
+
+/* =========================================================
+   MAIN LAYOUT
+========================================================= */
+
+.sell-layout {
+  display: flex;
+
+  min-height: calc(100vh - 86px);
+}

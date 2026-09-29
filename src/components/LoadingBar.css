@@ -1,0 +1,17 @@
+.youtube-loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  z-index: 99999;
+  pointer-events: none;
+}
+
+.youtube-loading-bar {
+  height: 100%;
+  width: 0%;
+ background:  linear-gradient(90deg, #6C63FF, #8B5CF6);
+  /* background: #370be8; */
+  transition: width 0.4s ease;
+}

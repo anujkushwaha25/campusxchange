@@ -1,0 +1,249 @@
+/* Google Font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f5f7fb;
+}
+
+/* =========================
+        NAVBAR
+========================= */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  width: 100%;
+  padding: 8px 0;
+
+  backdrop-filter: blur(16px);
+  background: rgba(255,255,255,0.75);
+
+  border-bottom: 1px solid rgba(255,255,255,.3);
+}
+
+.navbar-container {
+  width: 90%;
+  max-width: 1300px;
+
+  margin: auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* =========================
+          LOGO
+========================= */
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  cursor: pointer;
+}
+
+.navbar-logo-icon {
+  font-size: 28px;
+}
+
+.logo h2 {
+  color: #2563eb;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+
+/* =========================
+       NAVIGATION
+========================= */
+
+.nav-links {
+  display: flex;
+  gap: 35px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+
+  transition: .3s;
+  position: relative;
+}
+
+.nav-links a::after {
+
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: -6px;
+
+  width: 0;
+  height: 2px;
+
+  background: #2563eb;
+
+  transition: .3s;
+}
+
+.nav-links a:hover {
+
+  color: #2563eb;
+
+}
+
+.nav-links a:hover::after {
+
+  width: 100%;
+
+}
+
+/* =========================
+         BUTTONS
+========================= */
+
+.nav-buttons {
+
+  display: flex;
+
+  gap: 15px;
+
+}
+
+.nav-login-btn,
+.nav-signup-btn {
+
+  padding: 10px 22px;
+
+  border-radius: 30px;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  transition: .3s;
+
+  font-weight: 500;
+   text-decoration: none; 
+
+}
+
+.nav-login-btn {
+
+  background: transparent;
+
+  border: 2px solid #4f46e5;
+
+  color: #4f46e5;
+
+}
+
+.nav-login-btn:hover {
+
+  background: #4f46e5;
+
+  color: white;
+
+}
+
+.nav-signup-btn {
+
+  background: #4f46e5;
+
+  color: white;
+
+  border: none;
+
+  box-shadow: 0 10px 20px rgba(37,99,235,.3);
+
+}
+
+.nav-signup-btn:hover {
+
+  transform: translateY(-3px);
+
+  background: #4f46e5;
+
+}
+
+/* =========================
+       RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+.nav-links{
+
+display:none;
+
+}
+
+}
+
+
+/* =========================
+        SEARCH BOX
+========================= */
+
+/* .search-box {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 30px;
+  overflow: hidden;
+  margin: 0 20px;
+  transition: 0.3s;
+}
+
+.search-box:focus-within {
+  border-color: #4f46e5;
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.2);
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  padding: 10px 15px;
+  width: 220px;
+  font-size: 14px;
+  background: transparent;
+  font-family: "Poppins", sans-serif;
+}
+
+.search-btn {
+  border: none;
+  background: #7e9cdb;
+  color: white;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-btn:hover {
+  background: #4f46e5;
+} */
+
+@media (max-width: 1100px) {
+  .search-box input {
+    width: 150px;
+  }
+}
+
+@media (max-width: 900px) {
+  .search-box {
+    display: none;
+  }
+}

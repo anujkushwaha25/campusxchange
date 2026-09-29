@@ -1,0 +1,92 @@
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.dashboard-sidebar {
+  width: 258px;
+  min-height: 100vh;
+  background: #ffffff;
+  border-right: 1px solid #ececf5;
+  padding: 90px 18px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+
+
+
+
+
+
+/* =========================================
+   SIDEBAR NAV
+========================================= */
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 11px;
+  color: #25283a;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+
+.sidebar-link svg {
+  font-size: 18px;
+}
+
+
+.sidebar-link:hover {
+  background: #f3efff;
+  color: #5638e9;
+}
+
+
+.sidebar-link.active {
+  background: linear-gradient(
+    135deg,
+    #5434e8,
+    #6f38ed
+  );
+  color: #ffffff;
+  box-shadow:
+    0 8px 20px rgba(91, 58, 230, 0.22);
+}
+
+
+/* =========================================
+   SIDEBAR DIVIDER
+========================================= */
+
+.sidebar-divider {
+  height: 1px;
+  background: #eeeeF5;
+  margin: 20px 3px;
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+/* .dashboard-main {
+  margin-left: 258px;
+  width: calc(100% - 258px);
+  min-height: 100vh;
+  position: relative;
+} */

@@ -1,0 +1,121 @@
+.auth-modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(17, 15, 35, 0.55);
+  backdrop-filter: blur(3px);
+
+  z-index: 1000;
+}
+
+.auth-modal-box {
+  position: relative;
+
+  width: 90%;
+  max-width: 360px;
+
+  padding: 32px 28px 28px;
+
+  background: #ffffff;
+  border-radius: 16px;
+
+  text-align: center;
+
+  box-shadow: 0 20px 50px rgba(50, 30, 130, 0.25);
+
+  animation: auth-modal-pop 0.18s ease-out;
+}
+
+@keyframes auth-modal-pop {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.auth-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  width: 28px;
+  height: 28px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #f2effc;
+  color: #6535e8;
+
+  font-size: 14px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-modal-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.auth-modal-title {
+  margin: 0 0 8px;
+  font-size: 19px;
+  color: #17152b;
+}
+
+.auth-modal-text {
+  margin: 0 0 22px;
+  font-size: 13.5px;
+  color: #6b6780;
+  line-height: 1.5;
+}
+
+.auth-modal-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.auth-modal-login-btn,
+.auth-modal-signup-btn {
+  flex: 1;
+
+  height: 42px;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.auth-modal-login-btn {
+  border: 1.5px solid #4f46e5;
+  background: #ffffff;
+  color: #4f46e5;
+}
+
+.auth-modal-login-btn:hover {
+  background: #4f46e5;
+}
+
+.auth-modal-signup-btn {
+  border: none;
+  background: #4f46e5;
+  color: #ffffff;
+}
+
+.auth-modal-signup-btn:hover {
+  background: #4f46e5;
+}
