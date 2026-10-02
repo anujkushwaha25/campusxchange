@@ -3150,3 +3150,201 @@
   background: #6535e8 !important;
   color: #ffffff !important;
 } */
+
+/* =====================================================
+   ROLL NUMBER - ID PHOTO CHECK
+===================================================== */
+
+.roll-proof-box {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.roll-proof-empty {
+  width: 100%;
+  min-height: 92px;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 1.5px dashed #cfc2fa;
+  border-radius: 8px;
+  background: #faf8ff;
+  color: #6035d9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.roll-proof-empty svg {
+  font-size: 20px;
+}
+
+.roll-proof-preview {
+  width: 100%;
+  border: 1px solid #e7e5f1;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f6f5fb;
+}
+
+.roll-proof-preview img {
+  display: block;
+  width: 100%;
+  max-height: 150px;
+  object-fit: contain;
+}
+
+.roll-proof-box small {
+  margin-top: 7px;
+  color: #8b88a3;
+  font-size: 9px;
+}
+
+.roll-number-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+  transform: none;
+}
+
+.roll-verified-row {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.roll-change-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 12px;
+  border: 1px solid #cfc2fa;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #6035d9;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.roll-change-btn:hover {
+  background: #f5f1ff;
+  border-color: #a995ee;
+}
+
+/* =====================================================
+   LIVE PHOTO VERIFICATION
+===================================================== */
+
+.live-photo-tips {
+  margin: 12px 0 0;
+  padding-left: 16px;
+  color: #6b6885;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.live-photo-loading {
+  margin: 14px 0 0;
+  color: #6035d9;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.live-photo-stage {
+  position: relative;
+  margin-top: 12px;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #16132b;
+}
+
+.live-photo-stage video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); /* mirror preview like a selfie camera */
+}
+
+.live-photo-guide {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  width: 46%;
+  height: 72%;
+  transform: translateX(-50%);
+  border: 2px dashed rgba(255, 255, 255, 0.75);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.live-photo-banner {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  padding: 7px 10px;
+  border-radius: 7px;
+  background: rgba(22, 19, 43, 0.82);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.live-photo-steps {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.live-photo-steps li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #8b88a3;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.live-photo-steps li.done {
+  color: #15956d;
+}
+
+.live-photo-cancel {
+  margin-top: 12px;
+}
+
+.live-photo-result {
+  margin-top: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f6f5fb;
+}
+
+.live-photo-result img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roll-change-btn {
+    transition: none;
+  }
+}

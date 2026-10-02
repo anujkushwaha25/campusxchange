@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
+import { BrowserMultiFormatReader } from "@zxing/browser";
+import { DecodeHintType, BarcodeFormat } from "@zxing/library";
 
 import {
   FaUser,
@@ -17,13 +19,497 @@ import {
   FaInfoCircle,
   FaArrowRight,
   FaExclamationCircle,
-  FaMobile
+  FaMobile,
+  FaCamera,
+  FaSyncAlt
   
 } from "react-icons/fa";
 
 import "./Profile.css";
 import Navbar from "../components/Navbar";
 import SettingsSidebar from "../components/SettingsSidebar";
+
+
+/* =====================================================
+   ID CARD ROLL NUMBER SCAN (barcode first, text fallback)
+===================================================== */
+
+// "MCAN1CA 25038" -> "MCAN1CA25038"
+const normalize = (value) =>
+  String(value || "")
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g, "");
+
+const loadImage = (file) =>
+  new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      resolve(img);
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("image"));
+    };
+    img.src = url;
+  });
+
+// Draws part of the image on a canvas (optionally enlarged + high contrast)
+const makeCanvas = (
+  img,
+  { cropTop = 0, scale = 1, contrast = false, smooth = true }
+) => {
+  const sy = Math.floor(img.height * cropTop);
+  const sh = img.height - sy;
+  const maxW = 1800;
+  const k = Math.min(scale, maxW / img.width);
+
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(img.width * k);
+  canvas.height = Math.round(sh * k);
+
+  const ctx = canvas.getContext("2d", { willReadFrequently: true });
+  ctx.imageSmoothingEnabled = smooth;
+  ctx.imageSmoothingQuality = "high";
+  ctx.drawImage(img, 0, sy, img.width, sh, 0, 0, canvas.width, canvas.height);
+
+  if (contrast) {
+    const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const px = data.data;
+    for (let i = 0; i < px.length; i += 4) {
+      const g = 0.299 * px[i] + 0.587 * px[i + 1] + 0.114 * px[i + 2];
+      const v = g < 140 ? 0 : 255;
+      px[i] = px[i + 1] = px[i + 2] = v;
+    }
+    ctx.putImageData(data, 0, 0);
+  }
+
+  return canvas;
+};
+
+async function readBarcode(file) {
+  let img;
+  try {
+    img = await loadImage(file);
+  } catch {
+    return null;
+  }
+
+  const hints = new Map();
+  hints.set(DecodeHintType.TRY_HARDER, true);
+  hints.set(DecodeHintType.POSSIBLE_FORMATS, [
+    BarcodeFormat.CODE_128,
+    BarcodeFormat.CODE_39,
+    BarcodeFormat.CODE_93,
+    BarcodeFormat.ITF,
+    BarcodeFormat.EAN_13,
+    BarcodeFormat.QR_CODE,
+  ]);
+
+  const reader = new BrowserMultiFormatReader(hints);
+
+  // Several tries: small photos often need enlarging, and cropping to the
+  // lower half removes the photo / text that confuses the reader.
+  const attempts = [
+    { scale: 1 },
+    { scale: 2 },
+    { scale: 3 },
+    { scale: 2, cropTop: 0.5 },
+    { scale: 3, cropTop: 0.5 },
+    { scale: 2, contrast: true },
+    { scale: 3, cropTop: 0.5, contrast: true },
+    // crisp (nearest-neighbour) enlargement keeps thin bars sharp on small photos
+    { scale: 4, cropTop: 0.5, smooth: false },
+    { scale: 3, cropTop: 0.55, smooth: false, contrast: true },
+  ];
+
+  for (const options of attempts) {
+    try {
+      const result = reader.decodeFromCanvas(makeCanvas(img, options));
+      const text = result.getText();
+      if (text) return text;
+    } catch {
+      // not found in this attempt, try the next one
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Checks the roll number typed by the user against the BARCODE on the
+ * ID card photo.
+ *
+ * Only the barcode is trusted. Printed text on a card photo can be edited
+ * easily, so it is never used to approve a roll number.
+ *
+ * Returns { matched, reason }
+ *  - reason (when not matched): "mismatch" | "nobarcode" | "short"
+ */
+export async function verifyRollFromImage(file, rollNumber) {
+  const wanted = normalize(rollNumber);
+
+  if (wanted.length < 4) {
+    return { matched: false, reason: "short" };
+  }
+
+  const barcodeText = await readBarcode(file);
+
+  // Open the browser console (F12) to see what the barcode really contains
+  console.log("[ID scan] barcode text:", barcodeText);
+
+  if (!barcodeText) {
+    return { matched: false, reason: "nobarcode", barcodeText: null };
+  }
+
+  // Exact match (a half-typed roll number must not pass)
+  return normalize(barcodeText) === wanted
+    ? { matched: true, barcodeText }
+    : { matched: false, reason: "mismatch", barcodeText };
+}
+
+/* =====================================================
+   LIVE PHOTO VERIFICATION CARD
+===================================================== */
+
+// Keep the wasm version equal to the installed @mediapipe/tasks-vision version.
+// For production, download these files into /public and point to them instead.
+const WASM_URL =
+  "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm";
+const MODEL_URL =
+  "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task";
+
+const LABELS = {
+  blink: "Blink once",
+  turn: "Turn your head to one side",
+  center: "Look straight at the camera",
+};
+
+const shuffle = (list) => [...list].sort(() => Math.random() - 0.5);
+
+const LivePhotoVerification = ({ photo, onVerified, onReset }) => {
+  const videoRef = useRef(null);
+  const streamRef = useRef(null);
+  const landmarkerRef = useRef(null);
+  const rafRef = useRef(null);
+
+  // Logic state used inside the animation loop (no re-render per frame)
+  const stepsRef = useRef([]);
+  const indexRef = useRef(0);
+  const eyesClosedRef = useRef(false);
+  const centeredFramesRef = useRef(0);
+  const hintRef = useRef("");
+  const onVerifiedRef = useRef(onVerified);
+  onVerifiedRef.current = onVerified;
+
+  const [status, setStatus] = useState("idle"); // idle | loading | running
+  const [steps, setSteps] = useState([]);
+  const [doneCount, setDoneCount] = useState(0);
+  const [hint, setHint] = useState("");
+  const [error, setError] = useState("");
+
+  const updateHint = (text) => {
+    if (hintRef.current !== text) {
+      hintRef.current = text;
+      setHint(text);
+    }
+  };
+
+  const stopCamera = useCallback(() => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = null;
+
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => track.stop());
+      streamRef.current = null;
+    }
+  }, []);
+
+  // Stop the camera if the user leaves the page
+  useEffect(() => stopCamera, [stopCamera]);
+
+  const capture = useCallback(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext("2d").drawImage(video, 0, 0);
+
+    const dataUrl = canvas.toDataURL("image/jpeg", 0.9);
+
+    stopCamera();
+    setStatus("idle");
+    setSteps([]);
+    updateHint("");
+    onVerifiedRef.current(dataUrl);
+  }, [stopCamera]);
+
+  // Attach the camera to the <video> and run detection while status is "running"
+  useEffect(() => {
+    if (status !== "running") return undefined;
+
+    const video = videoRef.current;
+    if (!video || !streamRef.current) return undefined;
+
+    video.srcObject = streamRef.current;
+    video.play().catch(() => {});
+
+    let lastTime = -1;
+
+    const tick = () => {
+      const landmarker = landmarkerRef.current;
+
+      if (!landmarker || !streamRef.current) return;
+
+      if (video.readyState >= 2 && video.currentTime !== lastTime) {
+        lastTime = video.currentTime;
+
+        const result = landmarker.detectForVideo(video, performance.now());
+        const faces = result.faceLandmarks || [];
+
+        if (faces.length === 0) {
+          updateHint("No face found. Face the camera in good light.");
+        } else if (faces.length > 1) {
+          updateHint("Only one person should be in the frame.");
+        } else {
+          const lm = faces[0];
+
+          // Face size in frame
+          const xs = lm.map((p) => p.x);
+          const faceWidth = Math.max(...xs) - Math.min(...xs);
+
+          // Head turn: nose position between the two cheeks (0.5 = straight)
+          const yaw = (lm[1].x - lm[234].x) / (lm[454].x - lm[234].x);
+
+          // Blink score from blendshapes
+          const shapes = result.faceBlendshapes?.[0]?.categories || [];
+          const score = (name) =>
+            shapes.find((s) => s.categoryName === name)?.score || 0;
+          const blink = (score("eyeBlinkLeft") + score("eyeBlinkRight")) / 2;
+
+          const current = stepsRef.current[indexRef.current];
+
+          if (faceWidth < 0.22) {
+            updateHint("Move a little closer.");
+          } else {
+            updateHint("");
+
+            let passed = false;
+
+            if (current === "blink") {
+              if (blink > 0.5) eyesClosedRef.current = true;
+              if (eyesClosedRef.current && blink < 0.3) passed = true;
+            }
+
+            if (current === "turn") {
+              if (Math.abs(yaw - 0.5) > 0.17) passed = true;
+            }
+
+            if (current === "center") {
+              const straight = Math.abs(yaw - 0.5) < 0.08 && blink < 0.3;
+              centeredFramesRef.current = straight
+                ? centeredFramesRef.current + 1
+                : 0;
+
+              if (centeredFramesRef.current >= 8) {
+                capture();
+                return;
+              }
+            }
+
+            if (passed) {
+              indexRef.current += 1;
+              eyesClosedRef.current = false;
+              centeredFramesRef.current = 0;
+              setDoneCount(indexRef.current);
+            }
+          }
+        }
+      }
+
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [status, capture]);
+
+  const start = async () => {
+    setError("");
+    setStatus("loading");
+
+    try {
+      if (!navigator.mediaDevices?.getUserMedia) {
+        throw new Error("unsupported");
+      }
+
+      streamRef.current = await navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: "user",
+          width: { ideal: 640 },
+          height: { ideal: 480 },
+        },
+        audio: false,
+      });
+
+      if (!landmarkerRef.current) {
+        const { FaceLandmarker, FilesetResolver } = await import(
+          "@mediapipe/tasks-vision"
+        );
+        const fileset = await FilesetResolver.forVisionTasks(WASM_URL);
+
+        landmarkerRef.current = await FaceLandmarker.createFromOptions(
+          fileset,
+          {
+            baseOptions: { modelAssetPath: MODEL_URL },
+            runningMode: "VIDEO",
+            numFaces: 2,
+            outputFaceBlendshapes: true,
+          }
+        );
+      }
+
+      // Random order so a pre-recorded video cannot be replayed
+      const queue = [...shuffle(["blink", "turn"]), "center"];
+
+      stepsRef.current = queue;
+      indexRef.current = 0;
+      eyesClosedRef.current = false;
+      centeredFramesRef.current = 0;
+
+      setSteps(queue);
+      setDoneCount(0);
+      setStatus("running");
+    } catch (err) {
+      stopCamera();
+      setStatus("idle");
+
+      if (err?.name === "NotAllowedError") {
+        setError("Camera permission was denied. Allow camera access and try again.");
+      } else if (err?.name === "NotFoundError") {
+        setError("No camera found on this device.");
+      } else if (err?.message === "unsupported") {
+        setError("Camera is not available. Open the site on HTTPS or localhost.");
+      } else {
+        setError("Could not start the camera check. Please try again.");
+      }
+    }
+  };
+
+  const cancel = () => {
+    stopCamera();
+    setStatus("idle");
+    setSteps([]);
+    updateHint("");
+  };
+
+  const currentStep = steps[doneCount];
+
+  return (
+    <div className="roll-number-card live-photo-card">
+      <div className="roll-number-heading">
+        <div className="roll-number-icon">
+          <FaCamera />
+        </div>
+
+        <div>
+          <h3>7. Live Photo Verification</h3>
+          <p>Take a live photo so we know it's really you.</p>
+        </div>
+      </div>
+
+      {/* Verified state */}
+      {photo && status === "idle" && (
+        <>
+          <div className="live-photo-result">
+            <img src={photo} alt="Your live verification" />
+          </div>
+
+          <div className="roll-verified-row">
+            <div className="college-submitted-status">
+              <FaCheckCircle />
+              <span>Live photo verified</span>
+            </div>
+
+            <button
+              type="button"
+              className="roll-change-btn"
+              onClick={() => {
+                onReset();
+                start();
+              }}
+            >
+              <FaSyncAlt /> Retake
+            </button>
+          </div>
+        </>
+      )}
+
+      {/* Not started */}
+      {!photo && status === "idle" && (
+        <>
+          <ul className="live-photo-tips">
+            <li>Use good light and keep your face fully visible.</li>
+            <li>Remove cap, mask or sunglasses.</li>
+            <li>You will be asked to blink and turn your head.</li>
+          </ul>
+
+          {error && (
+            <div className="college-verification-error">
+              <FaExclamationCircle />
+              <span>{error}</span>
+            </div>
+          )}
+
+          <button
+            type="button"
+            className="roll-number-submit-btn"
+            onClick={start}
+          >
+            Start Live Check
+          </button>
+        </>
+      )}
+
+      {status === "loading" && (
+        <p className="live-photo-loading">Starting camera and face check…</p>
+      )}
+
+      {/* Camera running */}
+      {status === "running" && (
+        <>
+          <div className="live-photo-stage">
+            <video ref={videoRef} muted playsInline />
+            <div className="live-photo-guide" />
+
+            <div className="live-photo-banner">
+              {hint || (currentStep ? LABELS[currentStep] : "")}
+            </div>
+          </div>
+
+          <ul className="live-photo-steps">
+            {steps.map((step, i) => (
+              <li key={step} className={i < doneCount ? "done" : ""}>
+                {i < doneCount ? <FaCheckCircle /> : <FaRegCircle />}
+                <span>{LABELS[step]}</span>
+              </li>
+            ))}
+          </ul>
+
+          <button type="button" className="roll-change-btn live-photo-cancel" onClick={cancel}>
+            Cancel
+          </button>
+        </>
+      )}
+    </div>
+  );
+};
 
 const Profile = () => {
   const [profileImage, setProfileImage] = useState("/profile.jpg");
@@ -42,6 +528,11 @@ const [rollSubmitted, setRollSubmitted] = useState(false);
 const [rollNumberMessage, setRollNumberMessage] = useState("");
 const [idFront, setIdFront] = useState(null);
 const [idBack, setIdBack] = useState(null);
+const [rollProofFile, setRollProofFile] = useState(null);
+const [rollProofUrl, setRollProofUrl] = useState("");
+const [rollScanning, setRollScanning] = useState(false);
+const [rollScanInfo, setRollScanInfo] = useState("");
+const [livePhoto, setLivePhoto] = useState(null);
 const [addressSubmitted, setAddressSubmitted] = useState(false);
 const [addressErrors, setAddressErrors] = useState("");
 const [collegeSubmitted, setCollegeSubmitted] = useState(false);
@@ -182,6 +673,81 @@ const handleAddressSubmit = () => {
     setAddressSubmitted(true);
   }
 };
+const handleRollProofChange = (e) => {
+  const file = e.target.files?.[0];
+  e.target.value = "";
+
+  if (!file) return;
+
+  if (file.size > 5 * 1024 * 1024) {
+    setRollNumberMessage("Image size must be 5MB or less.");
+    return;
+  }
+
+  if (rollProofUrl) URL.revokeObjectURL(rollProofUrl);
+
+  setRollProofFile(file);
+  setRollProofUrl(URL.createObjectURL(file));
+  setRollNumberMessage("");
+  setRollScanInfo("");
+};
+
+const handleRollVerify = async () => {
+  const roll = rollNumber.trim();
+
+  if (!roll) {
+    setRollNumberMessage("Please enter your college roll number.");
+    return;
+  }
+
+  if (!/^[A-Za-z0-9-]+$/.test(roll)) {
+    setRollNumberMessage("Please enter a valid roll number.");
+    return;
+  }
+
+  if (!rollProofFile) {
+    setRollNumberMessage("Upload a photo of your ID card to verify the roll number.");
+    return;
+  }
+
+  setRollScanning(true);
+  setRollNumberMessage("");
+
+  try {
+    const result = await verifyRollFromImage(rollProofFile, roll);
+
+    setRollScanInfo(result.barcodeText || "not readable");
+
+    if (result.matched) {
+      setRollSubmitted(true);
+    } else if (result.reason === "mismatch") {
+      setRollNumberMessage(
+        "The barcode on your ID card does not match the roll number you entered."
+      );
+    } else if (result.reason === "nobarcode") {
+      setRollNumberMessage(
+        "Barcode could not be read. Upload a clear photo with the whole barcode visible, card flat and well lit."
+      );
+    } else {
+      setRollNumberMessage("Please enter a valid roll number.");
+    }
+  } catch {
+    setRollNumberMessage("Could not read the photo. Please try again.");
+  } finally {
+    setRollScanning(false);
+  }
+};
+
+const handleRollReset = () => {
+  if (rollProofUrl) URL.revokeObjectURL(rollProofUrl);
+
+  setRollSubmitted(false);
+  setRollNumberMessage("");
+  setRollScanInfo("");
+  setRollProofFile(null);
+  setRollProofUrl("");
+};
+
   return (
   <>
  <div className="profile-layout">
@@ -545,7 +1111,7 @@ const handleAddressSubmit = () => {
 
     <div>
       <h3>3. Student Roll Number</h3>
-      <p>Enter your college roll number.</p>
+      <p>Enter your roll number and upload your ID card photo to confirm it.</p>
     </div>
 
   </div>
@@ -558,28 +1124,19 @@ const handleAddressSubmit = () => {
       type="text"
       placeholder="Enter your college roll number"
       value={rollNumber}
-      disabled={rollSubmitted}
-
+      disabled={rollSubmitted || rollScanning}
       className={
         rollNumberMessage && !rollSubmitted
           ? "roll-number-input-error"
           : ""
       }
-
       onChange={(e) => {
-        const value = e.target.value;
-
-        setRollNumber(value);
-
-        // Remove error when user starts typing
+        setRollNumber(e.target.value);
         setRollNumberMessage("");
-
-        // Keep submitted state false while editing
         setRollSubmitted(false);
       }}
     />
 
-    {/* Green check after successful submission */}
     {rollSubmitted && (
       <span className="roll-number-check">
         <FaCheckCircle />
@@ -589,56 +1146,81 @@ const handleAddressSubmit = () => {
   </div>
 
 
-  {/* Error Message
-   {rollNumberMessage && !rollSubmitted && (
-  <div className="roll-number-error-message">
-    <FaExclamationCircle />
-    <span>{rollNumberMessage}</span>
+  {/* ID photo used to confirm the roll number */}
+  <div className="roll-proof-box">
+
+    {rollProofUrl ? (
+      <div className="roll-proof-preview">
+        <img src={rollProofUrl} alt="ID card used for roll number check" />
+      </div>
+    ) : (
+      <div className="roll-proof-empty">
+        <FaCloudUploadAlt />
+        <span>Photo of the ID side that shows your roll number or barcode</span>
+      </div>
+    )}
+
+    {!rollSubmitted && (
+      <>
+        <input
+          id="roll-proof-upload"
+          type="file"
+          accept="image/jpeg,image/png"
+          hidden
+          onChange={handleRollProofChange}
+        />
+
+        <label
+          htmlFor="roll-proof-upload"
+          className="student-id-upload-btn"
+        >
+          {rollProofUrl ? "Change Photo" : "Upload ID Photo"}
+        </label>
+      </>
+    )}
+
+    <small>JPG, PNG • Max 5MB • Keep the card flat and well lit</small>
+
+    {rollScanInfo && (
+      <small className="roll-scan-debug">
+        Scan v3 · barcode read: <b>{rollScanInfo}</b>
+      </small>
+    )}
+
   </div>
-)}  */}
- {rollNumberMessage && !rollSubmitted && (
-  <div className="college-verification-error">
-    <FaExclamationCircle />
-    <span>{rollNumberMessage}</span>
-  </div>
-)} 
 
 
-  {/* Submit Button */}
-  {!rollSubmitted && (
+  {rollNumberMessage && !rollSubmitted && (
+    <div className="college-verification-error">
+      <FaExclamationCircle />
+      <span>{rollNumberMessage}</span>
+    </div>
+  )}
+
+
+  {rollSubmitted ? (
+    <div className="roll-verified-row">
+      <div className="college-submitted-status">
+        <FaCheckCircle />
+        <span>Roll number matched with ID card</span>
+      </div>
+
+      <button
+        type="button"
+        className="roll-change-btn"
+        onClick={handleRollReset}
+      >
+        Change
+      </button>
+    </div>
+  ) : (
     <button
       type="button"
       className="roll-number-submit-btn"
-
-      onClick={() => {
-
-        // 1. Check empty field
-        if (!rollNumber.trim()) {
-          setRollNumberMessage(
-            "Please enter your college roll number."
-          );
-          return;
-        }
-
-
-        // 2. Check valid roll number
-        const rollNumberPattern = /^[A-Za-z0-9-]+$/;
-
-        if (!rollNumberPattern.test(rollNumber.trim())) {
-          setRollNumberMessage(
-            "Please enter a valid roll number."
-          );
-          return;
-        }
-
-
-        // 3. Successful submission
-        setRollNumberMessage("");
-        setRollSubmitted(true);
-
-      }}
+      disabled={rollScanning}
+      onClick={handleRollVerify}
     >
-      Submit Roll Number
+      {rollScanning ? "Reading ID card..." : "Verify Roll Number"}
     </button>
   )}
 
@@ -1076,6 +1658,17 @@ const handleAddressSubmit = () => {
 
 </div>
 
+{/* -------------------- live photo verification -------------------- */}
+
+<LivePhotoVerification
+  photo={livePhoto}
+  onVerified={(dataUrl) => {
+    setLivePhoto(dataUrl);
+    setProfileImage(dataUrl);
+  }}
+  onReset={() => setLivePhoto(null)}
+/>
+
 </div>
 
 
@@ -1163,6 +1756,10 @@ const handleAddressSubmit = () => {
 
     if (!collegeSubmitted || !profileData.college.trim()) {
       incomplete.push("College / University");
+    }
+
+    if (!livePhoto) {
+      incomplete.push("Live Photo");
     }
 
     if (incomplete.length > 0) {
@@ -1270,6 +1867,11 @@ const handleAddressSubmit = () => {
                 <div className="progress-item">
                   <FaRegCircle />
                   <span>Address Verification</span>
+                </div>
+
+                <div className={`progress-item ${livePhoto ? "completed" : ""}`}>
+                  {livePhoto ? <FaCheckCircle /> : <FaRegCircle />}
+                  <span>Live Photo Verification</span>
                 </div>
 
               </div>
