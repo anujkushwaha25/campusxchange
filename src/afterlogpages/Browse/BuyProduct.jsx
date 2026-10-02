@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { QRCodeSVG } from "qrcode.react";
-
 import { useNavigate, useParams } from "react-router-dom";
 
 import {
@@ -10,95 +8,38 @@ import {
   FaStar,
   FaShieldAlt,
   FaPaperPlane,
-  FaCheckCircle,
   FaUserCircle,
   FaTag,
   FaQuoteLeft,
   FaHandshake,
   FaCalendarAlt,
+  FaComments,
 } from "react-icons/fa";
 
 import { browseProductData } from "./BrowseProducts";
 
 import "./BuyProduct.css";
 
-// import Navbar from "../../components/Navbar";
-// import Sidebar from "../../components/Sidebar";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
-
 
 
 // ================================
 // DUMMY SELLER DATA
 // ================================
 // Real seller info will come from the backend later.
-// For now we just rotate through a few dummy sellers
-// based on the product id, so every product "belongs"
-// to someone.
 
 const dummySellersList = [
-  {
-    id: 101,
-    name: "Rohan Mehta",
-    initials: "RM",
-    rating: 4.8,
-    totalDeals: 12,
-    memberSince: "Jan 2025",
-  },
-  {
-    id: 102,
-    name: "Priya Sharma",
-    initials: "PS",
-    rating: 4.6,
-    totalDeals: 8,
-    memberSince: "Aug 2024",
-  },
-  {
-    id: 103,
-    name: "Aman Verma",
-    initials: "AV",
-    rating: 4.9,
-    totalDeals: 21,
-    memberSince: "Mar 2024",
-  },
-  {
-    id: 104,
-    name: "Sneha Kulkarni",
-    initials: "SK",
-    rating: 4.7,
-    totalDeals: 15,
-    memberSince: "Nov 2024",
-  },
+  { id: 101, name: "Rohan Mehta", initials: "RM", rating: 4.8, totalDeals: 12, memberSince: "Jan 2025" },
+  { id: 102, name: "Priya Sharma", initials: "PS", rating: 4.6, totalDeals: 8, memberSince: "Aug 2024" },
+  { id: 103, name: "Aman Verma", initials: "AV", rating: 4.9, totalDeals: 21, memberSince: "Mar 2024" },
+  { id: 104, name: "Sneha Kulkarni", initials: "SK", rating: 4.7, totalDeals: 15, memberSince: "Nov 2024" },
 ];
 
-
-// ================================
-// DUMMY REVIEWS DATA
-// ================================
-// Placeholder reviews for the seller. Real reviews will
-// come from the backend later — for now these just rotate
-// so every seller "has" some feedback to show.
-
 const dummyReviewsList = [
-  {
-    id: 1,
-    reviewer: "Ananya Gupta",
-    rating: 5,
-    text: "Item was exactly as described, smooth handover on campus.",
-  },
-  {
-    id: 2,
-    reviewer: "Karan Singh",
-    rating: 4,
-    text: "Good condition, seller replied quickly to my questions.",
-  },
-  {
-    id: 3,
-    reviewer: "Meera Iyer",
-    rating: 5,
-    text: "Easy deal, would buy from this seller again.",
-  },
+  { id: 1, reviewer: "Ananya Gupta", rating: 5, text: "Item was exactly as described, smooth handover on campus." },
+  { id: 2, reviewer: "Karan Singh", rating: 4, text: "Good condition, seller replied quickly to my questions." },
+  { id: 3, reviewer: "Meera Iyer", rating: 5, text: "Easy deal, would buy from this seller again." },
 ];
 
 
@@ -111,159 +52,72 @@ function BuyProduct() {
   const navigate = useNavigate();
   const { productId } = useParams();
 
-  // Find the product from the same dummy data used on Browse Products
   const product = browseProductData.find(
     (item) => item.id === Number(productId)
   );
 
-  // Pick a dummy seller based on the product id
   const buyProductSeller =
-    dummySellersList[
-      product ? product.id % dummySellersList.length : 0
-    ];
+    dummySellersList[product ? product.id % dummySellersList.length : 0];
 
-
-  // Buy now confirmation (dummy, no real payment yet)
-  const [buyProductOrderConfirmed, setBuyProductOrderConfirmed] =
-    useState(false);
-
-  // Message box to seller
-  const [buyProductBuyerMessage, setBuyProductBuyerMessage] =
-    useState(
-      product
-        ? `Hi, I'm interested in your "${product.name}". Is it still available?`
-        : ""
-    );
-
-  const [buyProductMessageSent, setBuyProductMessageSent] =
-    useState(false);
-
-  // Pickup arrangement (students meet in person to
-  // exchange the item — admin only handles the payment).
-  const [buyProductPickupSpot, setBuyProductPickupSpot] =
-  useState("");
-
-const [buyProductPickupDate, setBuyProductPickupDate] =
-  useState("");
-
-const [buyProductPickupTime, setBuyProductPickupTime] =
-  useState("");
-
-  const [buyProductPickupConfirmed, setBuyProductPickupConfirmed] =
-  useState(false);
-  
-
-const [buyProductShowPaymentQR, setBuyProductShowPaymentQR] =
-  useState(false);
-
-const [buyProductPaymentSubmitted, setBuyProductPaymentSubmitted] =
-  useState(false);
-
-const [buyProductPaymentProof, setBuyProductPaymentProof] =
-  useState(null);
-
-const [buyProductTransactionId, setBuyProductTransactionId] =
-  useState("");
-
-const [buyProductPaymentMessage, setBuyProductPaymentMessage] =
-  useState("");
-
-  // Step 1: "Proceed to Pay" click -> QR panel kholo
-const handleBuyProductProceedToPay = () => {
-  setBuyProductShowPaymentQR(true);
-};
-
-// Step 2: buyer confirms "maine QR se payment kar di"
-const handleBuyProductSubmitPayment = () => {
-  if (!buyProductPaymentProof) {
-    setBuyProductPaymentMessage(
-      "Please upload your payment screenshot."
-    );
-    return;
-  }
-
-  if (!buyProductTransactionId.trim()) {
-    setBuyProductPaymentMessage(
-      "Please enter your transaction ID."
-    );
-    return;
-  }
-
-  setBuyProductPaymentSubmitted(true);
-
-  setBuyProductPaymentMessage(
-    "Payment proof submitted successfully. Admin verification is pending."
+  // P2P deal: buyer chats with seller, agrees price + pickup there.
+  const [buyProductBuyerMessage, setBuyProductBuyerMessage] = useState(
+    product
+      ? `Hi, I'm interested in your "${product.name}". Is it still available?`
+      : ""
   );
-};
+
+  const [buyProductOfferPrice, setBuyProductOfferPrice] = useState("");
+  const [buyProductPickupSpot, setBuyProductPickupSpot] = useState("");
+  const [buyProductPickupDate, setBuyProductPickupDate] = useState("");
+  const [buyProductPickupTime, setBuyProductPickupTime] = useState("");
+  const [buyProductError, setBuyProductError] = useState("");
+
 
   // ================================
-  // MESSAGE SELLER
+  // START CHAT WITH SELLER
   // ================================
 
-  const handleBuyProductConfirmPickup = () => {
-  if (!buyProductPickupSpot) {
-    alert("Please select a meeting location.");
-    return;
-  }
+  const handleBuyProductStartChat = () => {
 
-  if (!buyProductPickupDate) {
-    alert("Please select a pickup date.");
-    return;
-  }
+    if (!buyProductBuyerMessage.trim()) {
+      setBuyProductError("Please write a message to the seller.");
+      return;
+    }
 
-  if (!buyProductPickupTime) {
-    alert("Please select a pickup time.");
-    return;
-  }
+    const offer = Number(buyProductOfferPrice);
 
-  setBuyProductPickupConfirmed(true);
-};
+    if (buyProductOfferPrice && (!Number.isFinite(offer) || offer <= 0)) {
+      setBuyProductError("Please enter a valid offer price.");
+      return;
+    }
 
+    setBuyProductError("");
 
-// ================================
-// MESSAGE SELLER
-// ================================
+    let fullMessage = buyProductBuyerMessage.trim();
 
-const handleBuyProductSendMessage = () => {
+    if (buyProductOfferPrice) {
+      fullMessage += `\n\nMy offer: ₹${offer.toLocaleString("en-IN")} (listed at ₹${product.price.toLocaleString("en-IN")})`;
+    }
 
-  if (!buyProductBuyerMessage.trim()) {
-    return;
-  }
+    if (buyProductPickupSpot || buyProductPickupDate || buyProductPickupTime) {
+      fullMessage +=
+        `\n\nProposed pickup: ${buyProductPickupSpot || "campus (spot TBD)"}` +
+        `${buyProductPickupDate ? `, ${buyProductPickupDate}` : ""}` +
+        `${buyProductPickupTime ? `, ${buyProductPickupTime}` : ""}`;
+    }
 
-  setBuyProductMessageSent(true);
-
-  const pickupLine =
-    buyProductPickupSpot ||
-    buyProductPickupDate ||
-    buyProductPickupTime
-      ? `\n\nProposed pickup: ${
-          buyProductPickupSpot || "campus (spot TBD)"
-        }${
-          buyProductPickupDate
-            ? `, ${buyProductPickupDate}`
-            : ""
-        }${
-          buyProductPickupTime
-            ? `, ${buyProductPickupTime}`
-            : ""
-        }`
-      : "";
-
-  const fullBuyerMessage =
-    `${buyProductBuyerMessage}${pickupLine}`;
-
-  navigate(`/messages/${buyProductSeller.id}`, {
-    state: {
-      product,
-      seller: buyProductSeller,
-      message: fullBuyerMessage,
-      pickupSpot: buyProductPickupSpot,
-      pickupDate: buyProductPickupDate,
-      pickupTime: buyProductPickupTime,
-    },
-  });
-
-};
+    navigate(`/messages/${buyProductSeller.id}`, {
+      state: {
+        product,
+        seller: buyProductSeller,
+        message: fullMessage,
+        offerPrice: buyProductOfferPrice ? offer : null,
+        pickupSpot: buyProductPickupSpot,
+        pickupDate: buyProductPickupDate,
+        pickupTime: buyProductPickupTime,
+      },
+    });
+  };
 
 
   // ================================
@@ -271,42 +125,24 @@ const handleBuyProductSendMessage = () => {
   // ================================
 
   if (!product) {
-
     return (
       <>
-      <Navbar/>
-      <Sidebar/>
-
-      <main className="buy-product-page">
-
-        <section className="buy-product-content">
-
-          <div className="buy-product-not-found">
-
-            <h2>
-              Product not found
-            </h2>
-
-            <p>
-              This listing may have been removed or the link
-              is incorrect.
-            </p>
-
-            <button
-              onClick={() => navigate("/browse")}
-            >
-              <FaArrowLeft />
-              Back to Browse
-            </button>
-
-          </div>
-
-        </section>
-
-      </main>
+        <Navbar />
+        <Sidebar />
+        <main className="buy-product-page">
+          <section className="buy-product-content">
+            <div className="buy-product-not-found">
+              <h2>Product not found</h2>
+              <p>This listing may have been removed or the link is incorrect.</p>
+              <button onClick={() => navigate("/browse")}>
+                <FaArrowLeft />
+                Back to Browse
+              </button>
+            </div>
+          </section>
+        </main>
       </>
     );
-
   }
 
 
@@ -323,11 +159,6 @@ const handleBuyProductSendMessage = () => {
 
       <section className="buy-product-content">
 
-
-        {/* =================================
-            BACK LINK
-        ================================= */}
-
         <button
           className="buy-product-back-link"
           onClick={() => navigate(-1)}
@@ -336,17 +167,7 @@ const handleBuyProductSendMessage = () => {
           Back to results
         </button>
 
-
-        {/* =================================
-            MAIN LAYOUT
-        ================================= */}
-
         <div className="buy-product-layout">
-
-
-          {/* =================================
-              LEFT: PRODUCT DETAILS
-          ================================= */}
 
           <div className="buy-product-details-column">
 
@@ -495,302 +316,153 @@ const handleBuyProductSendMessage = () => {
 
 
           {/* =================================
-              RIGHT: PURCHASE + MESSAGE PANEL
+              RIGHT: CHAT / DEAL PANEL (P2P)
           ================================= */}
 
           <aside className="buy-product-side-column">
 
-            {/* Buy Now / order summary */}
+            {/* Price + how it works */}
 
             <div className="buy-product-summary-card">
 
-              <h2>
-                Order Summary
-              </h2>
+              <h2>Deal with Seller</h2>
 
               <div className="buy-product-summary-row">
-
-                <span>Item price</span>
-
-                <span>
-                  ₹{product.price.toLocaleString("en-IN")}
-                </span>
-
+                <span>Asking price</span>
+                <span>₹{product.price.toLocaleString("en-IN")}</span>
               </div>
 
               <div className="buy-product-summary-row">
-
                 <span>Platform fee</span>
-
                 <span>₹0</span>
-
               </div>
 
-              <div className="buy-product-summary-total">
-
-                <span>Total</span>
-
-                <span>
-                  ₹{product.price.toLocaleString("en-IN")}
-                </span>
-
-              </div>
-
-              {!buyProductShowPaymentQR ? (
-
-                <button
-                  className="buy-product-confirm-button"
-                  onClick={handleBuyProductProceedToPay}
-                >
-                  Proceed to Pay
-                </button>
-
-              ) : !buyProductPaymentSubmitted ? (
-
-  <div className="buy-product-payment-box">
-
-    <div className="buy-product-qr-box">
-
-      {/* <img
-        src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=kushwaha.anuj@ptyes%26pn=CampusXchange%26am=${product.price}`}
-        alt="CampusXchange Admin Payment QR"
-      /> */}
-
-      <QRCodeSVG
-  value={`upi://pay?pa=kushwaha.anuj@ptyes&pn=CampusXchange&am=${product.price}`}
-  size={180}
-/>
-
-      <p className="buy-product-qr-upi">
-        UPI ID: <strong>kushwaha.anuj@ptyes</strong>
-      </p>
-
-      <p className="buy-product-qr-note">
-        Pay the amount to the CampusXchange admin.
-        The seller will receive the payment only after
-        the transaction is verified.
-      </p>
-
-    </div>
-
-
-    {/* PAYMENT PROOF */}
-
-    <div className="buy-product-payment-proof">
-
-      <label>
-        Payment Screenshot
-      </label>
-
-      <input
-        type="file"
-        accept="image/png,image/jpeg"
-        onChange={(e) => {
-          const file = e.target.files?.[0];
-
-          if (!file) return;
-
-          if (file.size > 5 * 1024 * 1024) {
-            setBuyProductPaymentMessage(
-              "Payment screenshot must be 5MB or less."
-            );
-            return;
-          }
-
-          setBuyProductPaymentProof(file);
-          setBuyProductPaymentMessage("");
-        }}
-      />
-
-      {buyProductPaymentProof && (
-        <p className="buy-product-file-success">
-          ✓ {buyProductPaymentProof.name}
-        </p>
-      )}
-
-    </div>
-
-
-    {/* TRANSACTION ID */}
-
-    <div className="buy-product-payment-proof">
-
-      <label>
-        Transaction ID / UTR Number
-      </label>
-
-      <input
-        type="text"
-        value={buyProductTransactionId}
-        onChange={(e) => {
-          setBuyProductTransactionId(e.target.value);
-          setBuyProductPaymentMessage("");
-        }}
-        placeholder="Enter transaction ID / UTR"
-      />
-
-    </div>
-
-
-    {buyProductPaymentMessage && (
-      <p className="buy-product-payment-message">
-        {buyProductPaymentMessage}
-      </p>
-    )}
-
-
-    <button
-      className="buy-product-confirm-button"
-      onClick={handleBuyProductSubmitPayment}
-    >
-      Submit Payment Proof
-    </button>
-
-  </div>
-
-              ) : (
-  <div className="buy-product-pending-box">
-    <FaClock />
-    <div>
-      <strong>Payment Verification Pending</strong>
-      <p>
-        Your payment proof has been submitted successfully.
-        Admin will verify your payment before the order is confirmed.
-      </p>
-    </div>
-  </div>
-)}
+              <p className="buy-product-peer-note">
+                <FaComments />
+                Chat with the seller, agree on the price and
+                meeting spot, then pay the seller directly when
+                you meet and inspect the item.
+              </p>
 
               <div className="buy-product-safety-note">
-
                 <FaShieldAlt />
-
                 <span>
                   Always meet on campus and inspect the item
-                  before paying.
+                  before paying. Don't pay in advance.
                 </span>
-
               </div>
 
             </div>
 
 
-            {/* Pickup arrangement — students meet in person,
-                admin only handles payment/verification */}
-
-            {/* Pickup Details */}
-
-<div className="buy-product-message-card">
-
-  <h2>
-    <FaHandshake style={{ marginRight: 6 }} />
-    Pickup Details
-  </h2>
-
-  <p className="buy-product-message-subtext">
-    Choose a safe campus location and your preferred
-    date and time to meet the seller.
-  </p>
-
-  <label className="buy-product-pickup-label">
-    Meeting Location
-  </label>
-
-  <select
-    className="buy-product-pickup-input"
-    value={buyProductPickupSpot}
-    onChange={(e) =>
-      setBuyProductPickupSpot(e.target.value)
-    }
-  >
-    <option value="">Select campus location</option>
-    <option value="Main Gate">Main Gate</option>
-    <option value="College Library">College Library</option>
-    <option value="College Canteen">College Canteen</option>
-    <option value="Admin Block">Admin Block</option>
-    <option value="Hostel Gate">Hostel Gate</option>
-    <option value="Parking Area">Parking Area</option>
-    <option value="Department Building">
-      Department Building
-    </option>
-    <option value="Other">Other</option>
-  </select>
-
-  <label className="buy-product-pickup-label">
-    Pickup Date
-  </label>
-
-  <div className="buy-product-date-wrapper">
-    <FaCalendarAlt className="buy-product-date-icon" />
-
-    <input
-      type="date"
-      className="buy-product-pickup-input buy-product-date-input"
-      value={buyProductPickupDate}
-      onChange={(e) =>
-        setBuyProductPickupDate(e.target.value)
-      }
-    />
-  </div>
-
-  <label className="buy-product-pickup-label">
-    Pickup Time
-  </label>
-
-  <div className="buy-product-time-wrapper">
-    <FaClock className="buy-product-time-icon" />
-
-    <input
-      type="time"
-      className="buy-product-pickup-input buy-product-time-input"
-      value={buyProductPickupTime}
-      onChange={(e) =>
-        setBuyProductPickupTime(e.target.value)
-      }
-    />
-  </div>
-<button
-  type="button"
-  className="buy-product-confirm-pickup-button"
-  onClick={handleBuyProductConfirmPickup}
->
-  <FaCheckCircle />
-  {buyProductPickupConfirmed
-    ? "Pickup Details Confirmed"
-    : "Confirm Pickup Details"}
-</button>
-</div>
-
-            {/* Message seller box */}
+            {/* Optional pickup proposal (sent with first message) */}
 
             <div className="buy-product-message-card">
 
               <h2>
-                Message Seller
+                <FaHandshake style={{ marginRight: 6 }} />
+                Propose Pickup (optional)
               </h2>
 
               <p className="buy-product-message-subtext">
-                Ask {buyProductSeller.name.split(" ")[0]} a
-                question about this item before you buy.
+                You can also decide this later in the chat.
               </p>
+
+              <label className="buy-product-pickup-label">Meeting Location</label>
+
+              <select
+                className="buy-product-pickup-input"
+                value={buyProductPickupSpot}
+                onChange={(e) => setBuyProductPickupSpot(e.target.value)}
+              >
+                <option value="">Select campus location</option>
+                <option value="Main Gate">Main Gate</option>
+                <option value="College Library">College Library</option>
+                <option value="College Canteen">College Canteen</option>
+                <option value="Admin Block">Admin Block</option>
+                <option value="Hostel Gate">Hostel Gate</option>
+                <option value="Parking Area">Parking Area</option>
+                <option value="Department Building">Department Building</option>
+                <option value="Other">Other</option>
+              </select>
+
+              <label className="buy-product-pickup-label">Pickup Date</label>
+
+              <div className="buy-product-date-wrapper">
+                <FaCalendarAlt className="buy-product-date-icon" />
+                <input
+                  type="date"
+                  className="buy-product-pickup-input buy-product-date-input"
+                  value={buyProductPickupDate}
+                  onChange={(e) => setBuyProductPickupDate(e.target.value)}
+                />
+              </div>
+
+              <label className="buy-product-pickup-label">Pickup Time</label>
+
+              <div className="buy-product-time-wrapper">
+                <FaClock className="buy-product-time-icon" />
+                <input
+                  type="time"
+                  className="buy-product-pickup-input buy-product-time-input"
+                  value={buyProductPickupTime}
+                  onChange={(e) => setBuyProductPickupTime(e.target.value)}
+                />
+              </div>
+
+            </div>
+
+
+            {/* Chat with seller */}
+
+            <div className="buy-product-message-card">
+
+              <h2>Chat with Seller</h2>
+
+              <p className="buy-product-message-subtext">
+                Ask {buyProductSeller.name.split(" ")[0]} about
+                this item or make an offer.
+              </p>
+
+              <label className="buy-product-pickup-label">
+                Your Offer (optional)
+              </label>
+
+              <input
+                type="number"
+                min="1"
+                className="buy-product-pickup-input"
+                value={buyProductOfferPrice}
+                onChange={(e) => {
+                  setBuyProductOfferPrice(e.target.value);
+                  setBuyProductError("");
+                }}
+                placeholder={`Listed at ₹${product.price.toLocaleString("en-IN")}`}
+              />
 
               <textarea
                 rows={4}
                 value={buyProductBuyerMessage}
-                onChange={(e) =>
-                  setBuyProductBuyerMessage(e.target.value)
-                }
+                onChange={(e) => {
+                  setBuyProductBuyerMessage(e.target.value);
+                  setBuyProductError("");
+                }}
                 placeholder="Type your message..."
               />
 
+              {buyProductError && (
+                <p className="buy-product-payment-message" style={{ marginTop: 10 }}>
+                  {buyProductError}
+                </p>
+              )}
+
               <button
-                className="buy-product-message-button"
-                onClick={handleBuyProductSendMessage}
+                className="buy-product-confirm-button"
+                style={{ marginTop: 12 }}
+                onClick={handleBuyProductStartChat}
               >
-                <FaPaperPlane />
-                {buyProductMessageSent
-                  ? "Message Sent"
-                  : "Send Message"}
+                <FaPaperPlane style={{ marginRight: 8 }} />
+                Start Chat
               </button>
 
             </div>

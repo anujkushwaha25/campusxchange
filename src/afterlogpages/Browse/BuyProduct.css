@@ -859,3 +859,34 @@ input[type="time"].buy-product-pickup-input {
 
   cursor: pointer;
 }
+
+
+/* =========================================================
+   P2P DEAL NOTE
+========================================================= */
+
+.buy-product-peer-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+
+  background: #f1edff;
+  color: #47517a;
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.buy-product-peer-note svg {
+  margin-top: 2px;
+  color: #6637ed;
+  flex-shrink: 0;
+}
+
+.buy-product-message-card .buy-product-payment-message {
+  background: #ffffff;
+}
