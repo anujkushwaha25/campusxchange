@@ -1,6 +1,7 @@
 .account-security-page {
-  margin-left: 305px;
-  width: calc(100% - 305px);
+  /* --settings-sidebar-width is set in SettingsSidebar.css (305 / 270 / 240px) */
+  margin-left: var(--settings-sidebar-width, 305px);
+  width: calc(100% - var(--settings-sidebar-width, 305px));
 
   min-height: calc(100vh - 72px);
 
@@ -1158,43 +1159,248 @@
    RESPONSIVE
 ========================================================= */
 
+
+/* =========================================================
+   RESPONSIVE  (replaces the old 1100 / 700 blocks)
+   Keep at the END of the file.
+
+   Page offset follows --settings-sidebar-width from
+   SettingsSidebar.css: 305px -> 270px -> 240px, and at 768px
+   and below the settings sidebar becomes a tab bar above the
+   content, so the offset is 0.
+========================================================= */
+
+.security-page-header > div:last-child,
+.security-card-heading > div:last-child,
+.delete-content {
+  min-width: 0;
+}
+
+.security-page-header h1,
+.security-card-heading h2 {
+  overflow-wrap: anywhere;
+}
+
+.session-device strong,
+.session-location {
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Protection items: 2 x 2 before they get cramped ---------- */
 @media (max-width: 1100px) {
 
-  .security-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .protection-card {
-    grid-column: auto;
-  }
-
   .protection-items {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-
-@media (max-width: 700px) {
+/* ---------- Tablet: one card per row ---------- */
+@media (max-width: 900px) {
 
   .account-security-page {
-    padding: 20px 15px 40px;
+    padding: 24px 22px 44px;
+  }
+
+  .security-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .password-card,
+  .two-factor-card {
+    min-height: 0;
+  }
+
+  .login-activity-card,
+  .protection-card,
+  .danger-zone {
+    grid-column: auto;
+  }
+
+  .delete-account-box,
+  .delete-account-btn {
+    width: 100%;
+  }
+}
+
+/* ---------- Settings sidebar is now a tab bar above the page ---------- */
+@media (max-width: 768px) {
+
+  .account-security-page {
+    margin-left: 0;
+    width: 100%;
+    min-height: 0;
+    padding: 18px 14px 40px;
+  }
+
+  .security-page-header {
+    align-items: flex-start;
+    margin-bottom: 18px;
+  }
+
+  .security-header-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 19px;
   }
 
   .security-page-header h1 {
-    font-size: 21px;
+    font-size: 22px;
   }
 
+  .security-page-header p {
+    font-size: 13px;
+  }
+
+  .security-grid {
+    gap: 14px;
+  }
+
+  .security-card {
+    padding: 16px;
+  }
+
+  .security-card-heading {
+    margin-bottom: 16px;
+  }
+
+  .security-card-heading h2,
+  .danger-heading h2 {
+    font-size: 16px;
+  }
+
+  .security-card-heading p,
+  .danger-heading p {
+    font-size: 12px;
+  }
+
+  .security-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 15px;
+  }
+
+  /* ----- form: 16px fonts stop iOS zoom, taller fields are easier to tap ----- */
+  .security-field label {
+    font-size: 13px;
+  }
+
+  .password-input input {
+    height: 46px;
+    font-size: 16px;
+  }
+
+  .password-input button {
+    width: 32px;
+    height: 32px;
+    right: 7px;
+    font-size: 15px;
+  }
+
+  .password-strength {
+    font-size: 12px;
+  }
+
+  .update-password-btn {
+    height: 46px;
+    font-size: 14px;
+  }
+
+  .password-message {
+    font-size: 12px;
+    padding: 10px 12px;
+  }
+
+  .forgot-password-btn {
+    padding: 6px 0;
+    font-size: 13px;
+  }
+
+  /* ----- 2FA ----- */
+  .two-factor-toggle-row {
+    font-size: 14px;
+  }
+
+  .security-toggle {
+    width: 46px;
+    height: 26px;
+  }
+
+  .security-toggle span {
+    width: 20px;
+    height: 20px;
+  }
+
+  .security-toggle.active span {
+    transform: translateX(20px);
+  }
+
+  .method-title {
+    font-size: 13px;
+  }
+
+  .security-method {
+    padding: 12px;
+    font-family: inherit;
+  }
+
+  .method-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 15px;
+  }
+
+  .method-content strong {
+    font-size: 14px;
+  }
+
+  .method-content span {
+    font-size: 12px;
+  }
+
+  .radio-circle {
+    width: 18px;
+    height: 18px;
+  }
+
+  .radio-circle span {
+    width: 8px;
+    height: 8px;
+  }
+
+  .security-info-box {
+    font-size: 12px;
+    padding: 11px;
+  }
+
+  /* ----- login activity: each session becomes a stacked card ----- */
   .session-header {
     display: none;
   }
 
   .session-row {
-    grid-template-columns: 1fr;
-    gap: 7px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    padding: 12px;
   }
 
-  .protection-items {
-    grid-template-columns: 1fr;
+  .browser-circle {
+    width: 34px;
+    height: 34px;
+    font-size: 15px;
+  }
+
+  .session-device strong {
+    font-size: 14px;
+  }
+
+  .session-device small {
+    font-size: 12px;
+  }
+
+  .session-location,
+  .session-active {
+    font-size: 12px;
+    padding-left: 42px;          /* line up under the device name */
   }
 
   .session-actions {
@@ -1204,5 +1410,99 @@
   .view-activity-btn,
   .logout-devices-btn {
     width: 100%;
+    height: 44px;
+    justify-content: center;
+    font-size: 13px;
+  }
+
+  .session-success {
+    font-size: 12px;
+    padding: 10px 12px;
+  }
+
+  /* ----- protection ----- */
+  .protection-items {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .protection-item {
+    padding: 12px;
+  }
+
+  .protection-status {
+    width: 32px;
+    height: 32px;
+  }
+
+  .protection-item strong,
+  .security-level strong {
+    font-size: 13px;
+  }
+
+  .protection-item span,
+  .security-level span {
+    font-size: 12px;
+  }
+
+  /* ----- danger zone ----- */
+  .delete-content strong {
+    font-size: 13px;
+  }
+
+  .delete-content span {
+    font-size: 12px;
+  }
+
+  .delete-account-btn {
+    height: 44px;
+    font-size: 13px;
+  }
+
+  .delete-confirm-box {
+    padding: 12px;
+  }
+
+  .delete-confirm-box p {
+    font-size: 13px;
+  }
+
+  .cancel-delete-btn,
+  .confirm-delete-btn {
+    height: 44px;
+    font-size: 13px;
+  }
+}
+
+/* ---------- Small phones ---------- */
+@media (max-width: 480px) {
+
+  .account-security-page {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .security-card {
+    padding: 14px;
+  }
+
+  .security-header-icon {
+    display: none;
+  }
+
+  .security-page-header h1 {
+    font-size: 20px;
+  }
+
+  .delete-confirm-box > div {
+    flex-direction: column;
+  }
+}
+
+/* Touch devices: no hover lift */
+@media (hover: none) {
+
+  .update-password-btn:hover {
+    transform: none;
+    box-shadow: none;
   }
 }

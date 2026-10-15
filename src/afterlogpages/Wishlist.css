@@ -950,24 +950,69 @@
    TABLET
    ===================================================== */
 
-@media (max-width: 1200px) {
 
-  .wishlist-container {
-    padding-left: 28px;
-    padding-right: 28px;
-  }
-
-  .wishlist-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-}
 
 
 /* =====================================================
    SMALL TABLET
    ===================================================== */
 
+
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+
+/* =====================================================
+   RESPONSIVE  (replaces the old 1200 / 850 / 600 blocks)
+   Keep at the END of the file.
+
+   --wishlist-sidebar-width  : main <Sidebar /> width (0 at <=850px,
+                               so Sidebar must hide / be a drawer there)
+   --wishlist-navbar-height  : set to your real navbar height
+   ===================================================== */
+
+.wishlist-page {
+  min-height: calc(100vh - var(--wishlist-navbar-height));
+  min-height: calc(100dvh - var(--wishlist-navbar-height));
+  overflow-x: hidden;
+}
+
+/* the filter row must be allowed to shrink so it scrolls sideways
+   instead of pushing the whole page wider */
+.wishlist-filters {
+  min-width: 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.wishlist-header-left {
+  min-width: 0;
+}
+
+/* ---------- Laptop ---------- */
+@media (max-width: 1350px) {
+
+  .wishlist-container {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .wishlist-grid {
+    gap: 20px;
+  }
+}
+
+/* ---------- Tablet ---------- */
+@media (max-width: 1200px) {
+
+  .wishlist-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Small tablet: main Sidebar is gone ---------- */
 @media (max-width: 850px) {
 
   .wishlist-page {
@@ -975,7 +1020,7 @@
   }
 
   .wishlist-container {
-    padding: 25px 20px 40px;
+    padding: 24px 20px 40px;
   }
 
   .wishlist-header {
@@ -984,47 +1029,56 @@
 
   .wishlist-header-actions {
     flex-direction: column;
-
     align-items: flex-end;
-
     gap: 10px;
+    flex-shrink: 0;
   }
 
   .wishlist-filter-section {
-    align-items: flex-start;
-
     flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
   }
 
   .wishlist-sort-wrapper {
-    width: 200px;
+    width: 100%;
+    max-width: 260px;
   }
-
 }
 
+/* ---------- Mobile ---------- */
+@media (max-width: 700px) {
 
-/* =====================================================
-   MOBILE
-   ===================================================== */
-
-@media (max-width: 600px) {
-
-  .wishlist-container {
-    padding: 20px 14px 35px;
+  .wishlist-page {
+    --wishlist-navbar-height: 84px;   /* mobile navbar has 2 rows */
   }
 
   .wishlist-header {
     flex-direction: column;
-
     align-items: stretch;
+    gap: 16px;
+    margin-bottom: 22px;
   }
 
   .wishlist-header-actions {
     flex-direction: row;
-
-    justify-content: space-between;
-
     align-items: center;
+    justify-content: space-between;
+  }
+
+  .wishlist-sort-wrapper {
+    max-width: none;
+  }
+
+  .wishlist-sort-select {
+    font-size: 16px;               /* stops iOS zoom on focus */
+  }
+}
+
+@media (max-width: 600px) {
+
+  .wishlist-container {
+    padding: 18px 14px 35px;
   }
 
   .wishlist-title {
@@ -1032,30 +1086,128 @@
   }
 
   .wishlist-title-icon {
-    width: 47px;
-    height: 47px;
+    width: 46px;
+    height: 46px;
+    font-size: 20px;
   }
 
   .wishlist-grid {
-    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 
-    gap: 18px;
+  .wishlist-image-wrapper {
+    height: 170px;
+  }
+
+  .wishlist-heart-button {
+    width: 36px;
+    height: 36px;
+    top: 8px;
+    right: 8px;
+    font-size: 15px;
+  }
+
+  .wishlist-price-drop {
+    top: 8px;
+    left: 8px;
+  }
+
+  .wishlist-product-info {
+    padding: 12px 12px 11px;
+  }
+
+  .wishlist-product-name {
+    font-size: 14px;
+  }
+
+  .wishlist-seller-row {
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
+
+  .wishlist-alert {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .wishlist-alert-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .wishlist-empty {
+    padding: 50px 16px;
+  }
+}
+
+/* ---------- Small phones: one card per row ---------- */
+@media (max-width: 480px) {
+
+  .wishlist-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
   }
 
   .wishlist-image-wrapper {
     height: 220px;
   }
 
-  .wishlist-alert {
-    align-items: flex-start;
-
-    flex-direction: column;
+  .wishlist-title {
+    font-size: 21px;
   }
 
-  .wishlist-alert-button {
-    width: 100%;
-
-    justify-content: center;
+  .wishlist-subtitle {
+    font-size: 13px;
   }
 
+  .wishlist-title-icon {
+    display: none;
+  }
+
+  .wishlist-sell-button {
+    padding: 11px 16px;
+  }
+}
+
+@media (max-width: 360px) {
+
+  .wishlist-container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .wishlist-image-wrapper {
+    height: 190px;
+  }
+
+  .wishlist-current-price {
+    font-size: 16px;
+  }
+}
+
+/* Touch devices: no hover lift (avoids "stuck" hover after tap) */
+@media (hover: none) {
+
+  .wishlist-card:hover {
+    transform: none;
+  }
+
+  .wishlist-card:hover .wishlist-product-image {
+    transform: none;
+  }
+}
+
+
+/* =========================================================
+   MOBILE BOTTOM NAV SPACE
+   On small screens the main Sidebar turns into a fixed bar at
+   the bottom of the screen. Leave room so it never covers the
+   last buttons / cards of the page.
+   (Change 900px if your Sidebar switches at another width.)
+========================================================= */
+@media (max-width: 900px) {
+  .wishlist-page {
+    padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+  }
 }

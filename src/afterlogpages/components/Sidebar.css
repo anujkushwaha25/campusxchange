@@ -13,12 +13,8 @@
   top: 0;
   bottom: 0;
   z-index: 100;
+  box-sizing: border-box;
 }
-
-
-
-
-
 
 
 /* =========================================
@@ -42,12 +38,14 @@
   color: #25283a;
   font-size: 14px;
   font-weight: 500;
+  text-decoration: none;
   transition: 0.3s ease;
 }
 
 
 .sidebar-link svg {
   font-size: 18px;
+  flex-shrink: 0;
 }
 
 
@@ -90,3 +88,131 @@
   min-height: 100vh;
   position: relative;
 } */
+
+
+/* =========================================
+   RESPONSIVE (media queries only)
+========================================= */
+
+/* Tablet: sidebar chhoti icon-rail ban jati hai (labels hide) */
+@media (max-width: 1024px) {
+  .dashboard-sidebar {
+    width: 78px;
+    padding: 90px 12px;
+  }
+
+  .sidebar-link {
+    justify-content: center;
+    gap: 0;
+    padding: 0;
+  }
+
+  .sidebar-link span {
+    display: none;
+  }
+
+  .sidebar-link svg {
+    font-size: 20px;
+  }
+
+  .sidebar-divider {
+    margin: 20px 6px;
+  }
+}
+
+
+/* Phone / small tablet: sidebar neeche bottom navigation bar ban jati hai */
+@media (max-width: 768px) {
+  .dashboard-sidebar {
+    top: auto;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    min-height: 0;
+    height: auto;
+
+    padding: 6px 8px;
+    padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+
+    border-right: none;
+    border-top: 1px solid #ececf5;
+    box-shadow: 0 -6px 20px rgba(35, 25, 80, 0.07);
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 4px;
+  }
+
+  .sidebar-link {
+    flex: 1 1 0;
+    min-width: 0;
+
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+
+    height: 54px;
+    padding: 0 2px;
+
+    border-radius: 10px;
+
+    font-size: 10px;
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  .sidebar-link span {
+    display: block;
+    max-width: 100%;
+  }
+
+  .sidebar-link svg {
+    font-size: 18px;
+  }
+
+  /* hover phone pe stuck ho jata hai, isliye hata diya */
+  .sidebar-link:hover {
+    background: transparent;
+    color: #25283a;
+  }
+
+  .sidebar-link.active,
+  .sidebar-link.active:hover {
+    background: linear-gradient(
+      135deg,
+      #5434e8,
+      #6f38ed
+    );
+    color: #ffffff;
+    box-shadow: 0 6px 14px rgba(91, 58, 230, 0.22);
+  }
+
+  .sidebar-divider {
+    display: none;
+  }
+}
+
+
+/* Chhote phones */
+@media (max-width: 380px) {
+  .dashboard-sidebar {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .sidebar-nav {
+    gap: 2px;
+  }
+
+  .sidebar-link {
+    font-size: 9px;
+  }
+
+  .sidebar-link svg {
+    font-size: 17px;
+  }
+}

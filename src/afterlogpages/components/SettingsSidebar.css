@@ -1,10 +1,17 @@
+/* Change these two if your navbar height / sidebar width differ */
+:root {
+  --navbar-height: 72px;
+  --settings-sidebar-width: 305px;
+}
+
 .settings-sidebar {
   position: fixed;
-  top: 72px;
+  top: var(--navbar-height);
   left: 0;
 
-  width: 305px;
-  height: calc(100vh - 72px);
+  width: var(--settings-sidebar-width);
+  height: calc(100vh - var(--navbar-height));
+  height: calc(100dvh - var(--navbar-height));
   min-height: 0;
 
   padding: 36px 20px 40px;
@@ -38,6 +45,7 @@
 .settings-nav-item {
   width: 100%;
   height: 53px;
+  box-sizing: border-box;
 
   display: flex;
   align-items: center;
@@ -50,6 +58,7 @@
   background: transparent;
 
   color: #4b5563;
+  text-decoration: none;          /* <Link> renders an <a> */
 
   font-size: 16px;
   font-weight: 500;
@@ -72,6 +81,7 @@
 }
 
 .settings-nav-icon {
+  flex-shrink: 0;
   width: 28px;
 
   display: flex;
@@ -85,6 +95,7 @@
 
 .settings-nav-text {
   flex: 1;
+  min-width: 0;
 }
 
 
@@ -102,11 +113,7 @@
 
   border-radius: 12px;
 
-  background: linear-gradient(
-    135deg,
-    #f5efff,
-    #eee5ff
-  );
+  background: linear-gradient(135deg, #f5efff, #eee5ff);
 
   overflow: hidden;
 }
@@ -136,11 +143,7 @@
   border: none;
   border-radius: 8px;
 
-  background: linear-gradient(
-    135deg,
-    #6534e8,
-    #5425d5
-  );
+  background: linear-gradient(135deg, #6534e8, #5425d5);
 
   color: #ffffff;
 
@@ -171,35 +174,105 @@
    RESPONSIVE
 ========================= */
 
+/* Small laptops */
+@media (max-width: 1100px) {
+  :root { --settings-sidebar-width: 270px; }
+
+  .settings-sidebar { padding: 30px 16px 32px; }
+  .settings-sidebar-title { font-size: 23px; margin-bottom: 22px; }
+  .settings-nav-item { padding: 0 18px; }
+}
+
+/* Tablets */
 @media (max-width: 900px) {
-  .settings-sidebar {
-    width: 240px;
-  }
+  :root { --settings-sidebar-width: 240px; }
+
+  .settings-sidebar { padding: 26px 14px 28px; }
+  .settings-sidebar-title { font-size: 21px; }
 
   .settings-nav-item {
-    padding: 0 15px;
+    height: 48px;
+    padding: 0 14px;
     font-size: 14px;
   }
 
-  .selling-tips-card {
-    padding: 20px 15px;
-  }
-
-  .selling-tips-content h3 {
+  .settings-nav-icon {
+    width: 24px;
+    margin-right: 10px;
     font-size: 17px;
   }
+
+  .selling-tips-card { padding: 20px 15px; min-height: 190px; }
+  .selling-tips-content h3 { font-size: 17px; margin-bottom: 16px; }
+  .selling-tips-illustration { font-size: 56px; }
 }
 
-@media (max-width: 700px) {
+/* Mobile: sidebar becomes a horizontal, scrollable tab bar */
+@media (max-width: 768px) {
   .settings-sidebar {
+    position: static;
+    top: auto;
+    left: auto;
+
     width: 100%;
-    min-height: auto;
+    height: auto;
+
+    /* extra top space: mobile navbar is taller than the space reserved for it */
+    padding: 32px 14px 12px;
 
     border-right: none;
     border-bottom: 1px solid #e9e9f2;
+
+    overflow: visible;
   }
 
-  .selling-tips-card {
-    margin-top: 25px;
+  .settings-sidebar-title {
+    margin: 0 4px 10px;
+    font-size: 20px;
   }
+
+  .settings-navigation {
+    flex-direction: row;
+    gap: 8px;
+
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .settings-navigation::-webkit-scrollbar { display: none; }
+
+  .settings-nav-item {
+    flex: 0 0 auto;
+    width: auto;
+    height: 42px;
+
+    padding: 0 16px;
+
+    border-radius: 999px;
+    background: #f5f5fa;
+
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .settings-nav-item.active { background: #f0eaff; }
+
+  .settings-nav-icon {
+    width: auto;
+    margin-right: 8px;
+    font-size: 15px;
+  }
+
+  .settings-nav-text { flex: none; }
+
+  /* promo card doesn't fit a tab bar */
+  .selling-tips-card { display: none; }
+}
+
+/* Small phones */
+@media (max-width: 400px) {
+  .settings-sidebar { padding: 30px 10px 10px; }
+  .settings-nav-item { height: 40px; padding: 0 13px; font-size: 13px; }
+  .settings-nav-icon { margin-right: 6px; }
 }

@@ -16,8 +16,8 @@
 ========================================================= */
 
 .browse-products-page {
-  width: calc(100% - 258px);
-  margin-left: 258px;
+  width: calc(100% - var(--app-sidebar-width, 258px));
+  margin-left: var(--app-sidebar-width, 258px);
   min-height: calc(100vh - 72px);
 
   background: #f8f9ff;
@@ -1478,135 +1478,16 @@
    RESPONSIVE
 ========================================================= */
 
-@media (max-width: 1200px) {
-
-  .browse-products-category-list {
-    grid-template-columns:
-      repeat(5, minmax(90px, 1fr));
-  }
-
-  .browse-products-grid {
-    grid-template-columns:
-      repeat(3, minmax(0, 1fr));
-  }
-
-  .browse-products-hero-visual {
-    width: 300px;
-  }
-
-}
 
 
-@media (max-width: 900px) {
-
-  .browse-products-content {
-    padding: 18px;
-  }
-
-  .browse-products-main-layout {
-    grid-template-columns: 210px minmax(0, 1fr);
-  }
-
-  .browse-products-grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-  }
-
-  .browse-products-hero-visual {
-    display: none;
-  }
-
-}
 
 
-@media (max-width: 700px) {
-
-  .browse-products-search-row {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .browse-products-sort-area {
-    justify-content: flex-end;
-  }
-
-  .browse-products-main-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .browse-products-filter-panel {
-    display: none;
-  }
-
-  .browse-products-mobile-filter {
-    display: flex;
-  }
-
-  .browse-products-category-list {
-    display: flex;
-    overflow-x: auto;
-  }
-
-  .browse-products-category-button {
-    flex: 0 0 100px;
-  }
-
-}
 
 
-@media (max-width: 500px) {
 
-  .browse-products-content {
-    padding: 14px;
-  }
 
-  .browse-products-hero {
-    min-height: 135px;
 
-    padding: 20px;
-  }
 
-  .browse-products-hero h1 {
-    font-size: 25px;
-  }
-
-  .browse-products-hero p {
-    font-size: 12px;
-  }
-
-  .browse-products-grid {
-    grid-template-columns: 1fr 1fr;
-
-    gap: 9px;
-  }
-
-  .browse-product-information {
-    padding: 8px;
-  }
-
-  .browse-product-title-row h3 {
-    font-size: 10px;
-  }
-
-  .browse-product-price {
-    font-size: 13px;
-  }
-
-  .browse-product-location {
-    font-size: 8px;
-  }
-
-  .browse-product-category-tag {
-    padding: 4px 6px;
-  }
-
-  .browse-product-btn-buy {
-    height: 28px;
-
-    font-size: 9px;
-  }
-
-}
 
 /* =========================================================
    PAGINATION
@@ -1701,4 +1582,404 @@
     font-size: 12px;
   }
 
+}
+
+
+/* =========================================================
+   RESPONSIVE  (replaces the old 1200 / 900 / 700 / 500 blocks)
+   Keep this block at the END of the file.
+
+   --app-sidebar-width = width of the main <Sidebar /> component.
+   It becomes 0 at 900px and below. Your Sidebar must be hidden
+   (or an off-canvas drawer) at that size.
+========================================================= */
+
+:root {
+  --app-sidebar-width: 258px;
+}
+
+.browse-products-page {
+  min-height: calc(100vh - 72px);
+  min-height: calc(100dvh - 72px);
+}
+
+.browse-products-content {
+  min-width: 0;
+}
+
+/* ---------- Category chips: one scrollable row, any width ---------- */
+.browse-products-category-list {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.browse-products-category-button {
+  flex: 1 0 96px;
+  min-width: 96px;
+  scroll-snap-align: start;
+}
+
+/* Sort section is the last real section (apply button comes after) */
+.browse-products-filter-section:nth-last-child(2) {
+  border-bottom: none;
+}
+
+/* Drawer-only elements are hidden on desktop */
+.browse-products-filter-backdrop,
+.browse-products-filter-close,
+.browse-products-filter-apply {
+  display: none;
+}
+
+.browse-products-filter-heading h2 {
+  margin-right: auto;
+}
+
+.browse-products-mobile-filter {
+  min-height: 38px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ---------- Grid columns by available width ---------- */
+@media (max-width: 1399px) {
+  .browse-products-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1149px) {
+  .browse-products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .browse-products-hero-visual {
+    width: 300px;
+  }
+}
+
+/* ---------- Tablet: filters become a slide-in drawer ---------- */
+@media (max-width: 1024px) {
+
+  .browse-products-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .browse-products-main-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .browse-products-mobile-filter {
+    display: flex;
+  }
+
+  .browse-products-filter-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1999;
+    background: rgba(20, 16, 50, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .browse-products-filter-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .browse-products-filter-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 2000;
+    width: min(320px, 88vw);
+    height: 100vh;
+    height: 100dvh;
+    padding: 18px;
+    overflow-y: auto;
+    border-radius: 0 16px 16px 0;
+    transform: translateX(-105%);
+    visibility: hidden;
+    transition: transform 0.3s ease, visibility 0.3s;
+  }
+
+  .browse-products-filter-panel.open {
+    transform: translateX(0);
+    visibility: visible;
+    box-shadow: 0 0 40px rgba(20, 16, 50, 0.25);
+  }
+
+  .browse-products-filter-heading {
+    gap: 14px;
+  }
+
+  .browse-products-filter-heading h2 {
+    font-size: 18px;
+  }
+
+  .browse-products-filter-heading button {
+    font-size: 12px;
+  }
+
+  .browse-products-filter-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #f3f1fb !important;
+    color: #5e6881 !important;
+    font-size: 14px !important;
+  }
+
+  .browse-products-filter-section h3 {
+    font-size: 13px;
+  }
+
+  .browse-products-select-wrapper select {
+    height: 42px;
+    font-size: 14px;
+  }
+
+  .browse-products-checkbox-row {
+    margin: 14px 0;
+    font-size: 13px;
+  }
+
+  .browse-products-checkbox-row input {
+    width: 18px;
+    height: 18px;
+  }
+
+  .browse-products-checkbox-row input:checked::after {
+    left: 5px;
+    top: 2px;
+  }
+
+  .browse-products-price-label,
+  .browse-products-price-values {
+    font-size: 12px;
+  }
+
+  .browse-products-price-slider {
+    height: 6px;
+  }
+
+  .browse-products-price-slider::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+  }
+
+  .browse-products-price-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+  }
+
+  .browse-products-filter-apply {
+    display: block;
+    position: sticky;
+    bottom: -18px;
+    width: calc(100% + 36px);
+    height: 54px;
+    margin: 10px -18px -18px;
+    border: none;
+    border-top: 1px solid #ece8fb;
+    background: #6637ed;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+}
+
+/* ---------- Main app Sidebar is gone: use full width ---------- */
+@media (max-width: 900px) {
+
+  :root {
+    --app-sidebar-width: 0px;
+  }
+
+  .browse-products-content {
+    padding: 18px;
+  }
+
+  .browse-products-hero-visual {
+    display: none;
+  }
+}
+
+/* ---------- Phones / small tablets ---------- */
+@media (max-width: 700px) {
+
+  .browse-products-search-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .browse-products-search-box input {
+    font-size: 16px;            /* stops iOS zoom on focus */
+  }
+
+  .browse-products-sort-area {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .browse-products-sort-select {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+
+  .browse-products-sort-select select {
+    font-size: 14px;
+  }
+
+  .browse-products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .browse-products-category-button {
+    flex: 0 0 92px;
+  }
+}
+
+/* ---------- List view on small screens ---------- */
+@media (max-width: 600px) {
+
+  .browse-product-card-list {
+    min-height: 120px;
+  }
+
+  .browse-product-card-list .browse-product-image-wrapper {
+    width: 120px;
+  }
+
+  .browse-product-card-list .browse-product-information {
+    padding: 12px;
+  }
+
+  .browse-product-card-list .browse-product-title-row h3 {
+    font-size: 13px;
+  }
+
+  .browse-product-card-list .browse-product-price {
+    font-size: 15px;
+  }
+
+  .browse-product-card-list .browse-product-bottom-row,
+  .browse-product-card-list .browse-product-actions {
+    max-width: none;
+  }
+}
+
+@media (max-width: 500px) {
+
+  .browse-products-content {
+    padding: 14px;
+  }
+
+  .browse-products-hero {
+    min-height: 120px;
+    padding: 20px;
+  }
+
+  .browse-products-hero h1 {
+    font-size: 25px;
+  }
+
+  .browse-products-hero p {
+    font-size: 12px;
+  }
+
+  .browse-products-grid {
+    gap: 9px;
+  }
+
+  .browse-product-information {
+    padding: 8px;
+  }
+
+  .browse-product-title-row h3 {
+    font-size: 11px;
+  }
+
+  .browse-product-price {
+    font-size: 13px;
+  }
+
+  .browse-product-location {
+    font-size: 9px;
+  }
+
+  .browse-product-category-tag {
+    padding: 4px 6px;
+  }
+
+  .browse-product-posted-time {
+    font-size: 8px;
+  }
+
+  .browse-product-btn-buy {
+    height: 32px;
+    font-size: 10px;
+  }
+
+  .browse-product-more-menu {
+    min-width: 150px;
+  }
+
+  .browse-products-search-button {
+    min-width: 76px;
+    padding: 0 14px;
+  }
+}
+
+@media (max-width: 400px) {
+
+  .browse-product-card-list .browse-product-image-wrapper {
+    width: 100px;
+  }
+
+  .browse-products-category-button {
+    flex: 0 0 84px;
+    min-width: 84px;
+  }
+}
+
+/* very small phones: one product per row (grid view only) */
+@media (max-width: 340px) {
+
+  .browse-products-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+
+/* =========================================================
+   MOBILE BOTTOM NAV SPACE
+   On small screens the main Sidebar turns into a fixed bar at
+   the bottom of the screen. Leave room so it never covers the
+   last buttons / cards of the page.
+   (Change 900px if your Sidebar switches at another width.)
+========================================================= */
+@media (max-width: 900px) {
+  .browse-products-page {
+    padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+  }
 }

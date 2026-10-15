@@ -11,11 +11,15 @@
 } */
 
 .my-orders-page {
-  margin-left: 277px;
-  width: calc(100% - 277px);
+  --orders-sidebar-width: 277px;   /* main <Sidebar /> width */
+  --orders-navbar-height: 76px;    /* fixed <Navbar /> height */
+
+  margin-left: var(--orders-sidebar-width);
+  width: calc(100% - var(--orders-sidebar-width));
 
   min-height: 100vh;
-  padding: 80px 40px 32px;
+  min-height: 100dvh;
+  padding: calc(var(--orders-navbar-height) + 4px) 40px 32px;
 
   background: #f8f9fc;
   box-sizing: border-box;
@@ -563,92 +567,170 @@
    TABLET
 ========================================= */
 
-@media (max-width: 1200px) {
-  .order-stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 
-  .order-card {
-    grid-template-columns:
-      90px
-      1.5fr
-      1fr
-      150px;
-  }
-
-  .order-details {
-    display: none;
-  }
-}
 
 /* =========================================
    MOBILE
 ========================================= */
 
-@media (max-width: 768px) {
+
+/* =========================================
+   RESPONSIVE  (replaces the old 1200 / 768 blocks)
+   Keep at the END of the file.
+
+   --orders-sidebar-width becomes 0 at 900px and below,
+   so the main Sidebar must be hidden / a drawer there.
+   Set --orders-navbar-height to your real navbar height.
+========================================= */
+
+.order-card > *,
+.order-stat-info,
+.orders-header > div {
+  min-width: 0;
+}
+
+.order-product-info h3,
+.order-details strong {
+  overflow-wrap: anywhere;
+}
+
+.order-tabs {
+  min-width: 0;
+}
+
+/* ---------- Laptop: stats become 2 x 2 ---------- */
+@media (max-width: 1300px) {
+
+  .order-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Tablet: 4-column card, order info moves to its own row ---------- */
+@media (max-width: 1260px) {
+
   .my-orders-page {
-    padding: 22px 16px 35px;
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .order-card {
+    grid-template-columns:
+      90px
+      minmax(0, 1.5fr)
+      minmax(0, 1fr)
+      150px;
+  }
+
+  .order-details {
+    order: 9;
+    grid-column: 1 / -1;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px 40px;
+
+    padding: 12px 0 0;
+
+    border-left: none;
+    border-top: 1px solid #edf0f5;
+  }
+}
+
+/* ---------- Main Sidebar is gone ---------- */
+@media (max-width: 900px) {
+
+  .my-orders-page {
+    --orders-sidebar-width: 0px;
+  }
+
+  .orders-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .order-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 3px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .order-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .order-tab {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 10px 18px;
+  }
+
+  .orders-sort {
+    width: 100%;
+  }
+}
+
+/* ---------- Phones: compact 2-column card ---------- */
+@media (max-width: 640px) {
+
+  .my-orders-page {
+    --orders-navbar-height: 84px;      /* mobile navbar has 2 rows */
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-bottom: 35px;
+  }
+
+  .orders-header {
+    margin-bottom: 18px;
   }
 
   .orders-header h1 {
-    font-size: 27px;
+    font-size: 26px;
+  }
+
+  .orders-header p {
+    font-size: 14px;
   }
 
   .order-stats-grid {
-    grid-template-columns: 1fr 1fr;
     gap: 12px;
   }
 
   .order-stat-card {
-    padding: 15px;
+    padding: 14px;
     gap: 11px;
+    min-height: 0;
   }
 
   .order-stat-icon {
-    width: 48px;
-    height: 48px;
-
+    width: 46px;
+    height: 46px;
     font-size: 19px;
-  }
-
-  .order-stat-info strong {
-    font-size: 22px;
+    flex-shrink: 0;
   }
 
   .order-stat-info h3 {
     font-size: 12px;
   }
 
+  .order-stat-info strong {
+    font-size: 22px;
+  }
+
   .order-stat-info span {
     display: none;
   }
 
-  .orders-filter-bar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .order-tabs {
-    overflow-x: auto;
-    flex-wrap: nowrap;
-
-    padding-bottom: 3px;
-  }
-
-  .order-tab {
-    white-space: nowrap;
-
-    padding: 9px 16px;
-  }
-
-  .orders-sort {
-    width: 100%;
+  .orders-sort select {
+    font-size: 16px;                   /* stops iOS zoom on focus */
   }
 
   .order-card {
-    grid-template-columns: 78px 1fr;
+    grid-template-columns: 78px minmax(0, 1fr);
     gap: 14px;
-
     padding: 15px;
   }
 
@@ -657,11 +739,18 @@
     height: 78px;
   }
 
+  .order-product-info h3 {
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
   .order-details {
-    display: none;
+    order: 1;
+    gap: 8px 28px;
   }
 
   .order-price-status {
+    order: 2;
     grid-column: 1 / -1;
 
     flex-direction: row;
@@ -675,13 +764,78 @@
   }
 
   .order-actions {
+    order: 3;
     grid-column: 1 / -1;
-
     flex-direction: row;
   }
 
   .view-order-btn,
   .primary-order-btn {
     flex: 1;
+    padding: 12px 10px;
+  }
+}
+
+/* ---------- Small phones ---------- */
+@media (max-width: 420px) {
+
+  .order-stat-card {
+    padding: 12px;
+    gap: 9px;
+  }
+
+  .order-stat-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+
+  .order-stat-info strong {
+    font-size: 20px;
+  }
+
+  .order-card {
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 12px;
+    padding: 13px;
+  }
+
+  .order-product-image {
+    width: 64px;
+    height: 64px;
+  }
+
+  .order-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 340px) {
+
+  .order-stats-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Touch devices: no hover lift */
+@media (hover: none) {
+
+  .order-card:hover {
+    transform: none;
+  }
+}
+
+
+/* =========================================================
+   MOBILE BOTTOM NAV SPACE
+   On small screens the main Sidebar turns into a fixed bar at
+   the bottom of the screen. Leave room so it never covers the
+   last buttons / cards of the page.
+   (Change 900px if your Sidebar switches at another width.)
+========================================================= */
+@media (max-width: 900px) {
+  .my-orders-page {
+    padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px));
   }
 }

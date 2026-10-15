@@ -193,19 +193,9 @@ const AccountSecurity = () => {
   return (
   <>
     <Navbar />
-    <SettingsSidebar />
-
     <SettingsSidebar activeItem="Account & Security" />
 
     <main className="account-security-page">
-
-      {/* =========================
-          PAGE HEADER
-      ========================= */}
-
-      {/* =========================
-          PAGE HEADER
-      ========================= */}
 
       {/* =========================
           PAGE HEADER

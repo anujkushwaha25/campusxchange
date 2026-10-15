@@ -2971,8 +2971,8 @@
    Profile content must leave 305px for it. */
 
 .profile-body .profile-page {
-  width: calc(100% - 305px);
-  margin-left: 305px;
+  width: calc(100% - var(--settings-sidebar-width, 305px));
+  margin-left: var(--settings-sidebar-width, 305px);
 
   height: 100%;
 
@@ -3346,5 +3346,127 @@
 @media (prefers-reduced-motion: reduce) {
   .roll-change-btn {
     transition: none;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE FIXES  (keep this block at the END of the file)
+   Sidebar width comes from --settings-sidebar-width
+   (set in SettingsSidebar.css: 305 / 270 / 240px)
+========================================================= */
+
+/* Laptops: right column takes 320-380px, so keep verification
+   cards in one column until the right column drops below */
+@media (min-width: 951px) and (max-width: 1280px) {
+  .verification-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Tablet + mobile: sidebar is a normal block above the content,
+   so remove the desktop offset and the fixed-height scroll area */
+@media (max-width: 768px) {
+  .profile-layout {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  .profile-body {
+    display: block;
+    height: auto;
+    overflow: visible;
+  }
+
+  .profile-body .settings-sidebar {
+    flex: none;
+  }
+
+  .profile-body .profile-page {
+    width: 100%;
+    margin-left: 0;          /* <-- the main bug */
+    height: auto;
+    overflow: visible;
+    padding: 12px;
+  }
+
+  .profile-detail-content strong,
+  .profile-detail-content span {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 700px) {
+  .profile-header {
+    min-height: 0;
+    padding: 20px 16px;
+  }
+
+  .profile-main-info {
+    width: 100%;
+    gap: 18px;
+  }
+
+  .edit-profile-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .edit-profile-actions {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .verification-section {
+    padding: 14px;
+  }
+
+  .verification-progress {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-page,
+  .profile-body .profile-page {
+    padding: 8px;
+  }
+
+  .profile-header {
+    padding: 18px 14px;
+  }
+
+  .profile-user-info,
+  .profile-main-info {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .profile-info-row span,
+  .profile-bio {
+    overflow-wrap: anywhere;
+  }
+
+  .verification-progress {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .final-verification-content {
+    flex-direction: column;
+  }
+
+  .final-verification-success {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .roll-verified-row {
+    flex-wrap: wrap;
+  }
+
+  .final-verification-btn {
+    width: 100%;
   }
 }

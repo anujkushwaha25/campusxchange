@@ -98,7 +98,7 @@ import {
             <span>My Orders</span>
           </Link>
 
-           <Link
+           {/* <Link
             to="/sellerwallet"
             className={`sidebar-link ${
               isActiveLink("/sellerwallet") ? "active" : ""
@@ -106,7 +106,7 @@ import {
           >
             <FaWallet />
             <span>Wallet</span>
-          </Link>
+          </Link> */}
             
         </nav>
 

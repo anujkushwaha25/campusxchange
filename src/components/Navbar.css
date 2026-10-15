@@ -1,4 +1,9 @@
-/* Google Font */
+/* ==========================================
+   NAVBAR.CSS  (responsive + hamburger menu)
+   Desktop/tablet: sab ek line me
+   640px se neeche: logo + ☰ button, baaki list me
+   ========================================== */
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
 * {
@@ -12,9 +17,9 @@ body {
   background: #f5f7fb;
 }
 
-/* =========================
-        NAVBAR
-========================= */
+/* ==========================================
+   NAVBAR BASE (desktop)
+   ========================================== */
 
 .navbar {
   position: sticky;
@@ -24,226 +29,322 @@ body {
   width: 100%;
   padding: 8px 0;
 
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
-  background: rgba(255,255,255,0.75);
+  background: rgba(255, 255, 255, 0.75);
 
-  border-bottom: 1px solid rgba(255,255,255,.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .navbar-container {
   width: 90%;
   max-width: 1300px;
-
   margin: auto;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
 }
 
-/* =========================
-          LOGO
-========================= */
+/* ---------- LOGO ---------- */
 
 .nav-logo {
   display: flex;
   align-items: center;
   gap: 10px;
-
+  flex-shrink: 0;
   cursor: pointer;
 }
 
 .navbar-logo-icon {
-  font-size: 28px;
+  font-size: clamp(19px, 1.2rem + 0.5vw, 28px);
 }
 
-.logo h2 {
+.nav-logo h2 {
   color: #2563eb;
   font-weight: 700;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
+  font-size: clamp(16px, 0.8rem + 0.6vw, 24px);
+  white-space: nowrap;
 }
 
-/* =========================
-       NAVIGATION
-========================= */
+/* ---------- HAMBURGER (desktop par hidden) ---------- */
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+
+  width: 42px;
+  height: 42px;
+  padding: 0;
+
+  background: transparent;
+  border: 2px solid #4f46e5;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #4f46e5;
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Open hone par ☰ -> ✕ */
+.navbar.menu-open .nav-toggle span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.navbar.menu-open .nav-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar.menu-open .nav-toggle span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ---------- LINKS ---------- */
 
 .nav-links {
   display: flex;
-  gap: 35px;
+  gap: clamp(18px, 3vw, 35px);
 }
 
 .nav-links a {
   text-decoration: none;
   color: #333;
   font-weight: 500;
+  font-size: clamp(13px, 0.8rem + 0.2vw, 16px);
 
-  transition: .3s;
+  transition: 0.3s;
   position: relative;
 }
 
 .nav-links a::after {
-
   content: "";
-
   position: absolute;
-
   left: 0;
   bottom: -6px;
 
   width: 0;
   height: 2px;
-
   background: #2563eb;
 
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .nav-links a:hover {
-
   color: #2563eb;
-
 }
 
 .nav-links a:hover::after {
-
   width: 100%;
-
 }
 
-/* =========================
-         BUTTONS
-========================= */
+/* ---------- BUTTONS ---------- */
 
 .nav-buttons {
-
   display: flex;
-
-  gap: 15px;
-
+  gap: clamp(8px, 1.2vw, 15px);
+  flex-shrink: 0;
 }
 
 .nav-login-btn,
 .nav-signup-btn {
-
   padding: 10px 22px;
-
   border-radius: 30px;
-
-  font-size: 15px;
-
-  cursor: pointer;
-
-  transition: .3s;
-
+  font-size: clamp(13px, 0.7rem + 0.3vw, 15px);
   font-weight: 500;
-   text-decoration: none; 
-
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .nav-login-btn {
-
   background: transparent;
-
   border: 2px solid #4f46e5;
-
   color: #4f46e5;
-
 }
 
 .nav-login-btn:hover {
-
   background: #4f46e5;
-
-  color: white;
-
+  color: #ffffff;
 }
 
 .nav-signup-btn {
-
   background: #4f46e5;
-
-  color: white;
-
-  border: none;
-
-  box-shadow: 0 10px 20px rgba(37,99,235,.3);
-
+  color: #ffffff;
+  border: 2px solid #4f46e5; /* login ke same size ke liye */
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
 }
 
 .nav-signup-btn:hover {
-
   transform: translateY(-3px);
-
-  background: #4f46e5;
-
-}
-
-/* =========================
-       RESPONSIVE
-========================= */
-
-@media(max-width:900px){
-
-.nav-links{
-
-display:none;
-
-}
-
 }
 
 
-/* =========================
-        SEARCH BOX
-========================= */
+/* ==========================================
+   RESPONSIVE
+   (max-width descending order me, order mat badalna)
+   ========================================== */
 
-/* .search-box {
-  display: flex;
-  align-items: center;
-  background: #fff;
-  border: 2px solid #e5e7eb;
-  border-radius: 30px;
-  overflow: hidden;
-  margin: 0 20px;
-  transition: 0.3s;
-}
-
-.search-box:focus-within {
-  border-color: #4f46e5;
-  box-shadow: 0 0 12px rgba(37, 99, 235, 0.2);
-}
-
-.search-box input {
-  border: none;
-  outline: none;
-  padding: 10px 15px;
-  width: 220px;
-  font-size: 14px;
-  background: transparent;
-  font-family: "Poppins", sans-serif;
-}
-
-.search-btn {
-  border: none;
-  background: #7e9cdb;
-  color: white;
-  padding: 10px 16px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.search-btn:hover {
-  background: #4f46e5;
-} */
-
+/* ---------- Small laptop ---------- */
 @media (max-width: 1100px) {
-  .search-box input {
-    width: 150px;
+  .navbar-container {
+    width: 92%;
+  }
+
+  .nav-login-btn,
+  .nav-signup-btn {
+    padding: 8px 16px;
   }
 }
 
+/* ---------- Tablet ---------- */
 @media (max-width: 900px) {
-  .search-box {
+  .nav-links {
+    gap: 16px;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+  }
+
+  .nav-login-btn,
+  .nav-signup-btn {
+    padding: 8px 14px;
+  }
+}
+
+/* ---------- Large mobile ---------- */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 6px 0;
+  }
+
+  .nav-links {
+    gap: 14px;
+  }
+
+  .nav-login-btn,
+  .nav-signup-btn {
+    padding: 7px 12px;
+    font-size: 12px;
+  }
+}
+
+/* ---------- Mobile: hamburger menu ----------
+   Top bar: Logo | Login | ☰
+   ☰ dabane par: links ki list + Sign Up */
+@media (max-width: 640px) {
+  .navbar-container {
+    width: 94%;
+    flex-wrap: wrap;
+    row-gap: 0;
+  }
+
+  /* .nav-buttons ka wrapper hata do, taaki Login aur Sign Up
+     alag-alag position le sakein */
+  .nav-buttons {
+    display: contents;
+  }
+
+  /* Login: hamesha top bar me, logo ke right side */
+  .nav-login-btn {
+    order: 2;
+    margin-left: auto;
+    padding: 8px 18px;
+    font-size: 13px;
+  }
+
+  /* ☰ button: Login ke baad */
+  .nav-toggle {
+    display: flex;
+    order: 3;
+  }
+
+  /* Links: list, default band */
+  .nav-links {
     display: none;
+    order: 4;
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .nav-links a {
+    padding: 13px 6px;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .nav-links a::after {
+    display: none;
+  }
+
+  /* Sign Up: list ke neeche, default band */
+  .nav-signup-btn {
+    display: none;
+    order: 5;
+    width: 100%;
+    margin: 12px 0 6px;
+    padding: 11px 14px;
+    font-size: 14px;
+  }
+
+  /* Menu open hone par dikhao */
+  .navbar.menu-open .nav-links {
+    display: flex;
+  }
+
+  .navbar.menu-open .nav-signup-btn {
+    display: block;
+  }
+
+  /* Bahut lamba menu chhoti screen par scroll ho sake */
+  .navbar.menu-open {
+    max-height: 100vh;
+    max-height: 100svh;
+    overflow-y: auto;
+  }
+}
+
+/* ---------- Small mobile ---------- */
+@media (max-width: 375px) {
+  .navbar-container {
+    width: 95%;
+  }
+
+  .nav-logo {
+    gap: 6px;
+  }
+
+  .nav-toggle {
+    width: 38px;
+    height: 38px;
+  }
+
+  .nav-login-btn {
+    padding: 7px 14px;
+    font-size: 12px;
+  }
+}
+
+/* ---------- Very small phones (320px) ---------- */
+@media (max-width: 340px) {
+  .nav-logo h2 {
+    font-size: 14px;
+    letter-spacing: 0;
   }
 }

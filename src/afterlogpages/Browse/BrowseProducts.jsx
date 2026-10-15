@@ -285,6 +285,37 @@ function BrowseProducts() {
   const [browseHiddenProductIds, setBrowseHiddenProductIds] =
     useState([]);
 
+  // Mobile / tablet filter drawer
+  const [isBrowseFilterOpen, setIsBrowseFilterOpen] =
+    useState(false);
+
+  useEffect(() => {
+
+    // lock page scroll while the drawer is open
+    document.body.style.overflow = isBrowseFilterOpen
+      ? "hidden"
+      : "";
+
+    const handleKey = (e) => {
+      if (e.key === "Escape") setIsBrowseFilterOpen(false);
+    };
+
+    // drawer is only used on small screens
+    const handleResize = () => {
+      if (window.innerWidth > 1024) setIsBrowseFilterOpen(false);
+    };
+
+    window.addEventListener("keydown", handleKey);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKey);
+      window.removeEventListener("resize", handleResize);
+    };
+
+  }, [isBrowseFilterOpen]);
+
   
   // ================================
   // CONDITION FILTER
@@ -755,7 +786,18 @@ function BrowseProducts() {
               FILTER PANEL
           ================================= */}
 
-          <aside className="browse-products-filter-panel">
+          <div
+            className={`browse-products-filter-backdrop ${
+              isBrowseFilterOpen ? "open" : ""
+            }`}
+            onClick={() => setIsBrowseFilterOpen(false)}
+          ></div>
+
+          <aside
+            className={`browse-products-filter-panel ${
+              isBrowseFilterOpen ? "open" : ""
+            }`}
+          >
 
             <div className="browse-products-filter-heading">
 
@@ -767,6 +809,15 @@ function BrowseProducts() {
                 onClick={clearBrowseFilters}
               >
                 Clear All
+              </button>
+
+              <button
+                type="button"
+                className="browse-products-filter-close"
+                onClick={() => setIsBrowseFilterOpen(false)}
+                aria-label="Close filters"
+              >
+                <FaTimes />
               </button>
 
             </div>
@@ -994,6 +1045,14 @@ function BrowseProducts() {
 
             </div>
 
+            <button
+              type="button"
+              className="browse-products-filter-apply"
+              onClick={() => setIsBrowseFilterOpen(false)}
+            >
+              Show {filteredBrowseProducts.length} results
+            </button>
+
           </aside>
 
 
@@ -1013,7 +1072,11 @@ function BrowseProducts() {
                 products
               </p>
 
-              <button className="browse-products-mobile-filter">
+              <button
+                type="button"
+                className="browse-products-mobile-filter"
+                onClick={() => setIsBrowseFilterOpen(true)}
+              >
                 <FaSlidersH />
                 Filters
               </button>
